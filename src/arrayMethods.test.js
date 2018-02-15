@@ -1,4 +1,4 @@
-import { initializeArray, randomizeArray, wraparound } from './arrayMethods';
+import { initializeArray, randomizeArray, wrapSide } from './arrayMethods';
 
 test('testing array initialization', () => {
   expect(initializeArray(0)).toEqual([]);
@@ -43,11 +43,28 @@ test('testing randomizer rate with specific weight. 100% weighting of 1 should a
   expect(array).toEqual(result);
 });
 
-test('testing the wraparound function', () => {
-  expect(wraparound(0, 3, 12)).toBe(3);
-  expect(wraparound(0, 12, 12)).toBe(0);
-  expect(wraparound(11, 3, 12)).toBe(2);
-  expect(wraparound(0, -3, 12)).toBe(9);
-  expect(wraparound(3, -3, 12)).toBe(0);
-  expect(wraparound(3, -5, 12)).toBe(10);
+test('testing the wrapSide function for positive cases', () => {
+  // edge case, width of 1
+  expect(wrapSide(0, 1, 1)).toBe(0);
+
+  expect(wrapSide(0, 1, 3)).toBe(1);
+  expect(wrapSide(1, 1, 3)).toBe(2);
+  expect(wrapSide(2, 1, 3)).toBe(0);
+  expect(wrapSide(3, 1, 3)).toBe(4);
+  expect(wrapSide(4, 1, 3)).toBe(5);
+  expect(wrapSide(5, 1, 3)).toBe(3);
+
+});
+
+test('testing the wrapSide function for negative cases', () => {
+  // edge case, width of 1
+  expect(wrapSide(0, -1, 1)).toBe(0);
+
+  expect(wrapSide(0, -1, 3)).toBe(2);
+  expect(wrapSide(1, -1, 3)).toBe(0);
+  expect(wrapSide(2, -1, 3)).toBe(1);
+  expect(wrapSide(3, -1, 3)).toBe(5);
+  expect(wrapSide(4, -1, 3)).toBe(3);
+  expect(wrapSide(5, -1, 3)).toBe(4);
+
 });

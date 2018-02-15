@@ -21,16 +21,36 @@ export function randomizeArray(arr, weight = 50) {
 }
 
 /*
- useful for wrapping from end to beginning,
- or from beginning back to end of array of specified length.
+ useful for navigating array as a toroid
+ https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Algorithms
+ moving off the right edge continues on the left edge and vice versa.
 
  arguments:
   start: starting array index
   add: (positive or negative) move forward or backward that many indices
-  len: length of array
+  width: number of columns
  */
 
-export function wraparound(start, add, len) {
-  var result = (start + add) % len;
-  return result < 0 ? len + result : result;
+export function wrapSide(start, add, width) {
+
+  // add is positive
+  if (add > 0) {
+
+    // (start + add) % width is 0, right edge
+    if ((start + add) % width === 0) {
+      return start + add - width;
+    } else {
+      return start + add;
+    }
+
+    // add is negative
+  } else {
+
+    // start % width is 0, left edge
+    if (start % width === 0) {
+      return start + add + width;
+    } else {
+      return start + add;
+    }
+  }
 }
