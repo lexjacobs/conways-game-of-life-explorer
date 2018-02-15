@@ -54,7 +54,7 @@ export function cellCount(board, width, index) {
  */
 export function createBoard(width, height, weight = 0) {
   var blankBoard = initializeArray(width * height);
-  return randomizeArray(blankBoard, weight)
+  return randomizeArray(blankBoard, weight);
 }
 
 /*

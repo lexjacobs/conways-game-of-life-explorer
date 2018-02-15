@@ -2,7 +2,7 @@
  return array of specified length, all zeros
  */
 export function initializeArray(len) {
-  return Array(len).fill(0)
+  return Array(len).fill(0);
 }
 
 /*
@@ -17,7 +17,7 @@ export function randomizeArray(arr, weight = 50) {
     return (Math.random() * 100) < weight ? 1 : 0;
   }
 
-  return arr.map(x => calculateRandom(weight))
+  return arr.map(x => calculateRandom(weight));
 }
 
 /*

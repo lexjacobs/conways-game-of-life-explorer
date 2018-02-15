@@ -1,3 +1,4 @@
+/* global test expect */
 import { initializeArray, randomizeArray, wrapSide, wrapTopBottom } from './arrayMethods';
 
 test('testing array initialization', () => {
@@ -28,7 +29,7 @@ test('testing randomizer rate with specific weight', () => {
   expect(array).not.toEqual(result);
   array = Array(5000).fill(0);
   result = randomizeArray(array, specificWeight);
-  expect(result.filter(x => x === 0).length / 10000).toBeCloseTo(0.25, 1)
+  expect(result.filter(x => x === 0).length / 10000).toBeCloseTo(0.25, 1);
 });
 
 test('testing randomizer rate with specific weight. 0% weighting of 1 should always return zeros', () => {
