@@ -27,7 +27,7 @@ test('validates that boards can be put into state', () => {
   expect(state.previousBoards).toEqual([]);
 });
 
-test('validates that boards can be put into previousBoards state', () => {
+test('validates that boards can be put into previousBoards state, but only unique boards', () => {
   var state = {
     board: [1, 2, 3],
     previousBoards: []
@@ -50,7 +50,6 @@ test('validates that boards can be put into previousBoards state', () => {
   state = boardState(state, action);
   expect(state.board).toEqual([1, 2, 3]);
   expect(state.previousBoards).toEqual([
-    [1, 2, 3],
     [1, 2, 3]
   ]);
 });

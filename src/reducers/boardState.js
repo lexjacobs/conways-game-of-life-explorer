@@ -3,8 +3,9 @@ import {iterateBoard} from '../boardMethods';
 
 const defaultState = {
   previousBoards: [],
-  board: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  width: 3,
+  board: [],
+  width: 8,
+  height: 8,
   under: 2,
   over: 3,
   lazarus: 3
@@ -21,6 +22,12 @@ export function boardState(state = defaultState, action) {
     };
 
   case constants.SET_PREVIOUS_BOARD:
+
+    // if the board is no longer evolving, stop pushing to history
+    if(JSON.stringify(state.previousBoards.slice(-1)) === JSON.stringify([state.board])) {
+      return state;
+    }
+
     return {
       ...state,
       previousBoards: state.previousBoards.concat([state.board])
