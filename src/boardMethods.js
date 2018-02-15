@@ -89,5 +89,5 @@ export function iterateBoard(board, width, under = 2, over = 3, lazarus = 3) {
 
     }
 
-  })
+  });
 }
