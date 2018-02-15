@@ -72,3 +72,12 @@ test('it tests a 2 period blinker with the default rules', () => {
   var board = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   expect(iterateBoard(board, 5)).toEqual([0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]);
 });
+
+test('it tests that a 5x5 board with a single glider repeats every 20 iterations with the standard rules', () => {
+  var board = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0];
+  var newBoard = board.slice();
+
+  for (let i = 0; i < 20; i++)
+    newBoard = iterateBoard(newBoard, 5);
+  expect(newBoard).toEqual(board);
+});

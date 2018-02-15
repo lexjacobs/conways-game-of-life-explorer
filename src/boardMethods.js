@@ -85,7 +85,7 @@ export function iterateBoard(board, width, under = 2, over = 3, lazarus = 3) {
       }
 
       // otherwise it remains dead
-       return cell;
+      return cell;
 
     }
 
