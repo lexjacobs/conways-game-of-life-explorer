@@ -19,7 +19,7 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
       this.props.iterateBoard();
     }, 100);
     this.setState({
-    //   timer
+      timer
     });
     // this.props.setBoard([0,1,2]);
     this.props.setBoard([
