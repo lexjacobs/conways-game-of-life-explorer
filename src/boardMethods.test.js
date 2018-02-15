@@ -1,6 +1,7 @@
 import {
   cellCount,
-  createBoard
+  createBoard,
+  iterateBoard
 } from './boardMethods';
 
 test('it correctly counts the number of living cells surrounding a cell, which is 0 if everyone is dead', () => {
@@ -53,4 +54,21 @@ test('it creates a board with the expected width, height, and defined weighting 
   expect(result.length).toEqual(200);
   expect(result.includes(0)).toEqual(true);
   expect(result.includes(1)).toEqual(false);
+});
+
+test('it iterates the board with the proper decisions (default rules)', () => {
+
+  // any 3x3 board with a single living cell will iterate to all zeros
+  for (var i = 0; i < 9; i++) {
+    var board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    board[i] = 1;
+    expect(iterateBoard(board, 3)).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  }
+});
+
+test('it tests a 2 period blinker with the default rules', () => {
+
+  // any 3x3 board with a single living cell will iterate to all zeros
+  var board = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  expect(iterateBoard(board, 5)).toEqual([0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]);
 });

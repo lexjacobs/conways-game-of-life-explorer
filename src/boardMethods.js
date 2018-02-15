@@ -56,3 +56,38 @@ export function createBoard(width, height, weight = 0) {
   var blankBoard = initializeArray(width * height);
   return randomizeArray(blankBoard, weight)
 }
+
+/*
+ Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+ Any live cell with two or three live neighbours lives on to the next generation.
+ Any live cell with more than three live neighbours dies, as if by overpopulation.
+ Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+ */
+export function iterateBoard(board, width, under = 2, over = 3, lazarus = 3) {
+  return board.map((cell, i) => {
+    let count = cellCount(board, width, i);
+
+    // cell is alive
+    if (cell === 1) {
+
+      // live cell over / underpopulation
+      if (count < under || count > over) {
+        return 0;
+      }
+
+      // otherwise it lives
+      return cell;
+
+    } else {
+      // cell is dead
+      if (count === lazarus) {
+        return 1;
+      }
+
+      // otherwise it remains dead
+       return cell;
+
+    }
+
+  })
+}
