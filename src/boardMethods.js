@@ -1,4 +1,9 @@
-import { initializeArray, randomizeArray, wraparound } from './arrayMethods';
+import {
+  initializeArray,
+  randomizeArray,
+  wrapSide,
+  wrapTopBottom
+} from './arrayMethods';
 
 /*
  returns the number of living (1) cells surrounding cell at index
@@ -10,10 +15,29 @@ import { initializeArray, randomizeArray, wraparound } from './arrayMethods';
 export function cellCount(board, width, index) {
   var total = 0;
 
+  var indexLeft = wrapSide(index, -1, width);
+  var indexRight = wrapSide(index, 1, width);
+
   // for each of the living surrounding cells, increment total
-  [(index - width - 1), (index - width), (index - width + 1), (index - 1), (index + 1), (index + width - 1), (index + width), (index + width + 1)].forEach(position => {
-    var living = board[wraparound(index, (position - index), board.length)];
-    if(living) {
+  [
+    indexLeft, //left
+    indexRight, //right
+    // top left
+    wrapTopBottom(indexLeft, -1, width, board.length),
+    // top middle
+    wrapTopBottom(index, -1, width, board.length),
+    // top right
+    wrapTopBottom(indexRight, -1, width, board.length),
+    // bottom left
+    wrapTopBottom(indexLeft, 1, width, board.length),
+    // bottom middle
+    wrapTopBottom(index, 1, width, board.length),
+    // bottom right
+    wrapTopBottom(indexRight, 1, width, board.length)
+
+  ].forEach((position) => {
+    var living = board[position];
+    if (living) {
       total++;
     }
   });

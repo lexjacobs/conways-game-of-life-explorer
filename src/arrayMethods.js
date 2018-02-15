@@ -54,3 +54,38 @@ export function wrapSide(start, add, width) {
     }
   }
 }
+
+/*
+ useful for navigating array as a toroid
+ moving off the top edge continues on the bottom edge and vice versa.
+
+ arguments:
+  start: starting array index
+  add: (positive or negative) move forward or backward that many indices
+  width: number of columns (number of rows will be inferred)
+ */
+
+export function wrapTopBottom(start, add, width, length) {
+
+  // add is positive
+  if (add > 0) {
+
+    // start + width >= length, bottom edge
+    if (start + width >= length) {
+      return start + width - length;
+    } else {
+      return start + width;
+    }
+
+  } else {
+    // add is negative
+
+    // start - width < 0 , top edge
+    if (start - width < 0) {
+      return start - width + length;
+    } else {
+      return start - width;
+    }
+  }
+
+}

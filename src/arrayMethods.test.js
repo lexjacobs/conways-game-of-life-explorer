@@ -1,4 +1,4 @@
-import { initializeArray, randomizeArray, wrapSide } from './arrayMethods';
+import { initializeArray, randomizeArray, wrapSide, wrapTopBottom } from './arrayMethods';
 
 test('testing array initialization', () => {
   expect(initializeArray(0)).toEqual([]);
@@ -67,4 +67,22 @@ test('testing the wrapSide function for negative cases', () => {
   expect(wrapSide(4, -1, 3)).toBe(3);
   expect(wrapSide(5, -1, 3)).toBe(4);
 
+});
+
+test('testing the wrapTopBottom function for positive cases', () => {
+  expect(wrapTopBottom(0, 1, 3, 9)).toBe(3);
+  expect(wrapTopBottom(3, 1, 3, 9)).toBe(6);
+  expect(wrapTopBottom(6, 1, 3, 9)).toBe(0);
+  expect(wrapTopBottom(2, 1, 3, 9)).toBe(5);
+  expect(wrapTopBottom(5, 1, 3, 9)).toBe(8);
+  expect(wrapTopBottom(8, 1, 3, 9)).toBe(2);
+});
+
+test('testing the wrapTopBottom function for negative cases', () => {
+  expect(wrapTopBottom(0, -1, 3, 9)).toBe(6);
+  expect(wrapTopBottom(3, -1, 3, 9)).toBe(0);
+  expect(wrapTopBottom(6, -1, 3, 9)).toBe(3);
+  expect(wrapTopBottom(2, -1, 3, 9)).toBe(8);
+  expect(wrapTopBottom(5, -1, 3, 9)).toBe(2);
+  expect(wrapTopBottom(8, -1, 3, 9)).toBe(5);
 });
