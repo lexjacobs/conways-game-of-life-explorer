@@ -13,19 +13,17 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     };
   }
   componentDidMount() {
-    console.log('GameContainer mounted');
     var timer = setInterval(() => {
       // this.props.setPreviousBoard();
       this.props.iterateBoard();
-    }, 100);
+    }, 250);
     this.setState({
       timer
     });
-    // this.props.setBoard([0,1,2]);
-    this.props.setBoard([
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ]);
-    // this.props.setBoard(createBoard(this.props.width, this.props.height, 60));
+    // this.props.setBoard([
+    //   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    // ]);
+    this.props.setBoard(createBoard(this.props.width, this.props.height, 50));
   }
   componentWillUnmount() {
     clearInterval(this.state.timer);
@@ -33,7 +31,6 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
   render() {
     return ( <div className="GameContainer">
       <Gameboard board={this.props.board}/>
-      hello there
     </div>
     );
   }

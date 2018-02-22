@@ -1,37 +1,32 @@
-* { box-sizing: border-box; }
-
-/* body {
-  width: 500px;
-  height: 500px;
-  background-color: #cff;
-  color: #555;
-  font: 1.6em Arial, serif;
-} */
+body {
+  box-sizing: border-box;
+  /* padding: 0; */
+  /* border: 0; */
+}
 
 .cellOn {
-  width: 50px;
-  height: 50px;
-  background-color: rgba(0,0,0,.5);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, .5);
 }
 
 .cellOff {
-  width: 50px;
-  height: 50px;
-  background-color: rgba(255,255,255,.5);
+  width: 60px;
+  height: 60px;
+  background-color: rgb(255, 255, 255);
 }
 
 .grid {
   width: 500px;
   height: 500px;
   display: grid;
-  grid-template-columns: repeat(8,
-    1fr);
-  grid-gap: 0;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 1.5px;
 }
 
-.grid > * {
-padding: 0;
-  border: 2px solid rgba(0,0,0,.5);
-  border-radius: 2px;
+.grid>* {
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, .5);
+  border-radius: 0px;
   color: #fff;
 }
