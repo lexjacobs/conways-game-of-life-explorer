@@ -1,5 +1,5 @@
 import * as constants from '../constants/constants';
-import {iterateBoard} from '../boardMethods';
+import {iterateBoard} from '../helpers/boardMethods';
 
 const defaultState = {
   previousBoards: [],

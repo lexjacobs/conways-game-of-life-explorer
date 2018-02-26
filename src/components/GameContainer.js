@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/actions';
-import {createBoard} from '../boardMethods';
+import {createBoard} from '../helpers/boardMethods';
 import Gameboard from './Gameboard';
 
 export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer extends Component {
