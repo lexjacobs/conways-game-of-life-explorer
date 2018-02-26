@@ -1,5 +1,5 @@
 import * as constants from '../constants/constants';
-import {iterateBoard} from '../helpers/boardMethods';
+import {extractValues, iterateBoard, populateBoard, updateCellValues} from '../helpers/boardMethods';
 
 const defaultState = {
   previousBoards: [],
@@ -16,9 +16,10 @@ export function boardState(state = defaultState, action) {
 
   case constants.SET_BOARD:
 
+    // action.board should be a simple integer array
     return {
       ...state,
-      board: action.board
+      board: populateBoard(action.board)
     };
 
   case constants.SET_PREVIOUS_BOARD:
@@ -33,11 +34,17 @@ export function boardState(state = defaultState, action) {
       previousBoards: state.previousBoards.concat([state.board])
     };
 
-  case constants.ITERATE_BOARD:
+  case constants.ITERATE_BOARD: {
+    const oldBoard = extractValues(state.board);
+    const iteratedValues = iterateBoard(oldBoard, state.width, state.under, state.over, state.lazarus);
+    const iteratedBoard = updateCellValues(state.board, iteratedValues);
+
     return {
       ...state,
-      board: iterateBoard(state.board, state.width, state.under, state.over, state.lazarus)
+      board: iteratedBoard
     };
+  }
+
 
   default:
     return state;

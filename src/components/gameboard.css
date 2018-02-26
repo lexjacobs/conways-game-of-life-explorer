@@ -1,7 +1,7 @@
 body {
   box-sizing: border-box;
-  /* padding: 0; */
-  /* border: 0; */
+  padding: 0;
+  border: 0;
 }
 
 .cellOn {
@@ -16,17 +16,17 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-.grid {
+/* .grid {
   width: 500px;
   height: 500px;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-gap: 1.5px;
-}
+} */
 
 .grid>* {
   padding: 0;
   border: 1px solid rgba(0, 0, 0, .5);
-  border-radius: 0px;
+  border-radius: 5px;
   color: #fff;
 }

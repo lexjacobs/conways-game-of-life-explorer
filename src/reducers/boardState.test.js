@@ -2,6 +2,7 @@
 import {
   boardState
 } from './boardState';
+import {InitializeCell, populateBoard} from '../helpers/boardMethods'
 import * as constants from '../constants/constants';
 
 test('validates that boards can be put into state', () => {
@@ -17,13 +18,13 @@ test('validates that boards can be put into state', () => {
   expect(state.previousBoards).toEqual([]);
   state = boardState(state, action);
   expect(state.previousBoards).toEqual([]);
-  expect(state.board).toEqual([3, 2, 1]);
+  expect(state.board).toEqual([new InitializeCell(3), new InitializeCell(2), new InitializeCell(1)]);
   action = {
     type: constants.SET_BOARD,
     board: [4, 5, 6]
   };
   state = boardState(state, action);
-  expect(state.board).toEqual([4, 5, 6]);
+  expect(state.board).toEqual([new InitializeCell(4), new InitializeCell(5), new InitializeCell(6)]);
   expect(state.previousBoards).toEqual([]);
 });
 
@@ -56,13 +57,15 @@ test('validates that boards can be put into previousBoards state, but only uniqu
 
 test('validates that boards can be iterated', () => {
   var state = {
-    board: [0,0,1,0,0,0,0,0,0],
+    board: populateBoard([0,1]),
     width: 3,
     under: 2,
     over: 3,
     lazarus: 3
   };
-  expect(state.board).toEqual([0,0,1,0,0,0,0,0,0]);
+  expect(state.board).toEqual(populateBoard([0,1]));
   state = boardState(state, {type: 'ITERATE_BOARD'});
-  expect(state.board).toEqual([0,0,0,0,0,0,0,0,0]);
+  expect(state.board).toEqual(      [{previousValue: 0, value: 1}, {previousValue: 1, value: 1}]);
+  state = boardState(state, {type: 'ITERATE_BOARD'});
+
 });
