@@ -57,6 +57,26 @@ export function createBoard(width, height, weight = 0) {
   return randomizeArray(blankBoard, weight);
 }
 
+/* Cells have the ability to store their own value, as well as keep a record of their last value. Getters and setters included */
+
+export function InitializeCell(value = 0) {
+  this.value = value;
+  this.previousValue = null;
+}
+
+InitializeCell.prototype.getValue = function() {
+  return this.value;
+};
+
+InitializeCell.prototype.getPreviousValue = function() {
+  return this.previousValue;
+};
+
+InitializeCell.prototype.setValue = function(value) {
+  this.previousValue = this.value;
+  this.value = value;
+};
+
 /*
  Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
  Any live cell with two or three live neighbours lives on to the next generation.

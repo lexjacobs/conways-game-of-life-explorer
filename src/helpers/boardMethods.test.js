@@ -2,6 +2,7 @@
 import {
   cellCount,
   createBoard,
+  InitializeCell,
   iterateBoard
 } from './boardMethods';
 
@@ -81,4 +82,18 @@ test('it tests that a 5x5 board with a single glider repeats every 20 iterations
   for (let i = 0; i < 20; i++)
     newBoard = iterateBoard(newBoard, 5);
   expect(newBoard).toEqual(board);
+});
+
+test('it properly initializes a cell', () => {
+  // implicit value test
+  var cell = new InitializeCell();
+  expect(cell.getPreviousValue()).toEqual(null);
+  expect(cell.getValue()).toEqual(0);
+  // explicit value test
+  cell = new InitializeCell(1);
+  expect(cell.getPreviousValue()).toEqual(null);
+  expect(cell.getValue()).toEqual(1);
+  cell.setValue(42);
+  expect(cell.getPreviousValue()).toEqual(1);
+  expect(cell.getValue()).toEqual(42);
 });
