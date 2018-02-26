@@ -20,10 +20,10 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     this.setState({
       timer
     });
-    // this.props.setBoard([
-    //   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    // ]);
-    this.props.setBoard(createBoard(this.props.width, this.props.height, 50));
+    this.props.setBoard([
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ]);
+    // this.props.setBoard(createBoard(this.props.width, this.props.height, 50));
   }
   componentWillUnmount() {
     clearInterval(this.state.timer);
