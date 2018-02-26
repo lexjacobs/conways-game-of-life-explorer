@@ -1,9 +1,12 @@
 /* global test expect */
 import {
   cellCount,
-  createBoard,
+  extractValues,
+  initializeBoard,
   InitializeCell,
-  iterateBoard
+  iterateBoard,
+  populateBoard,
+  updateCellValues
 } from './boardMethods';
 
 test('it correctly counts the number of living cells surrounding a cell, which is 0 if everyone is dead', () => {
@@ -13,7 +16,7 @@ test('it correctly counts the number of living cells surrounding a cell, which i
   expect(result).toBe(0);
   // this should work regardless of starting index
   for (var i = 0; i < board.length; i++) {
-    var result = cellCount(board, 3, i);;
+    result = cellCount(board, 3, i);
     expect(result).toBe(0);
   }
 });
@@ -31,28 +34,28 @@ test('it correctly counts the number of living cells surrounding a cell, which i
 });
 
 test('it creates a board with the expected width, height, and default weighting', () => {
-  var result = createBoard(1, 1);
+  var result = initializeBoard(1, 1);
   expect(result).toEqual([0]);
-  result = createBoard(2, 1);
+  result = initializeBoard(2, 1);
   expect(result).toEqual([0, 0]);
-  result = createBoard(3, 3);
+  result = initializeBoard(3, 3);
   expect(result).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  result = createBoard(20, 10);
+  result = initializeBoard(20, 10);
   expect(result.length).toEqual(200);
   expect(result.includes(1)).toEqual(false);
-  result = createBoard(0, 0);
+  result = initializeBoard(0, 0);
   expect(result).toEqual([]);
 });
 
 test('it creates a board with the expected width, height, and defined weighting of 100%', () => {
-  var result = createBoard(20, 10, 100);
+  var result = initializeBoard(20, 10, 100);
   expect(result.length).toEqual(200);
   expect(result.includes(0)).toEqual(false);
   expect(result.includes(1)).toEqual(true);
 });
 
 test('it creates a board with the expected width, height, and defined weighting of 0%', () => {
-  var result = createBoard(20, 10, 0);
+  var result = initializeBoard(20, 10, 0);
   expect(result.length).toEqual(200);
   expect(result.includes(0)).toEqual(true);
   expect(result.includes(1)).toEqual(false);
@@ -96,4 +99,42 @@ test('it properly initializes a cell', () => {
   cell.setValue(42);
   expect(cell.getPreviousValue()).toEqual(1);
   expect(cell.getValue()).toEqual(42);
+});
+
+test('it converts and integer array to an array of cell objects with populateBoard', () => {
+  var board = [];
+  var result = populateBoard(board);
+  expect(result).toEqual([]);
+  board = [0];
+  result = populateBoard(board);
+  expect(result).toEqual([new InitializeCell(0)]);
+  board = [1];
+  result = populateBoard(board);
+  expect(result).toEqual([new InitializeCell(1)]);
+});
+
+test('extractValues returns an array of values only from the complex cell objects', () => {
+  var board = [new InitializeCell(1), new InitializeCell(42)];
+  var result = extractValues(board);
+  expect(result).toEqual([1, 42]);
+});
+
+test('updateCellValues fails with old and new arrays of different lengths', () => {
+  var oldBoard = [new InitializeCell(1), new InitializeCell(42)];
+  var newBoard = [1, 2, 3];
+  expect(() => updateCellValues(oldBoard, newBoard)).toThrow();
+});
+
+test('updateCellValues updates the complex cell objects with new integer values', () => {
+  var oldBoard = [new InitializeCell(10), new InitializeCell(42)];
+  var newBoard = [1, 2];
+  expect(oldBoard[0].getValue()).toBe(10);
+  expect(oldBoard[1].getValue()).toBe(42);
+  expect(oldBoard[0].getPreviousValue()).toBe(null);
+  expect(oldBoard[1].getPreviousValue()).toBe(null);
+  updateCellValues(oldBoard, newBoard);
+  expect(oldBoard[0].getValue()).toBe(1);
+  expect(oldBoard[1].getValue()).toBe(2);
+  expect(oldBoard[0].getPreviousValue()).toBe(10);
+  expect(oldBoard[1].getPreviousValue()).toBe(42);
 });

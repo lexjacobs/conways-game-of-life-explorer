@@ -45,6 +45,28 @@ export function cellCount(board, width, index) {
   return total;
 }
 
+/* extract only the values from an array of complex cell objects */
+export function extractValues(board) {
+  return board.map(x => x.getValue());
+}
+
+/* create a board with complex cell objects from a simple integer array */
+export function populateBoard(board) {
+  return board.map(x => new InitializeCell(x));
+}
+
+/* return complex cell objects with new integer values (pure) */
+export function updateCellValues(oldBoard, newValues) {
+  if (oldBoard.length !== newValues.length) {
+    throw new Error('Attempting to update oldBoard with new values of different length');
+  }
+  var updatedBoard = oldBoard.slice();
+  newValues.forEach(function(value, i) {
+    updatedBoard[i].setValue(value);
+  });
+  return updatedBoard;
+}
+
 /*
  create a board representation (just a flat array)
  inputs:
@@ -52,9 +74,10 @@ export function cellCount(board, width, index) {
    height in rows
    randomness in whole number %
  */
-export function createBoard(width, height, weight = 0) {
+export function initializeBoard(width, height, weight = 0) {
   var blankBoard = initializeArray(width * height);
-  return randomizeArray(blankBoard, weight);
+  var randomArray = randomizeArray(blankBoard, weight);
+  return randomArray;
 }
 
 /* Cells have the ability to store their own value, as well as keep a record of their last value. Getters and setters included */
