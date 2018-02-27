@@ -101,6 +101,7 @@ InitializeCell.prototype.setValue = function(value) {
 };
 
 /*
+ Default rules:
  Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
  Any live cell with two or three live neighbours lives on to the next generation.
  Any live cell with more than three live neighbours dies, as if by overpopulation.
@@ -110,7 +111,7 @@ export function iterateBoard(board, width, under = 2, over = 3, lazarus = 3) {
   return board.map((cell, i) => {
     let count = cellCount(board, width, i);
 
-    // cell is alive
+    // if cell is alive
     if (cell === 1) {
 
       // live cell over / underpopulation
@@ -121,8 +122,8 @@ export function iterateBoard(board, width, under = 2, over = 3, lazarus = 3) {
       // otherwise it lives
       return cell;
 
+    // cell is dead
     } else {
-      // cell is dead
       if (count === lazarus) {
         return 1;
       }

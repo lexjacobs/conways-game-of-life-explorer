@@ -15,19 +15,24 @@ const GameControls = (props) => {
       <input name="chance" onChange={props.onChange} value={props.chance} id="chance" max="100" type="number" min="0"/>
 
       <br/>
+      <br/>
 
-      <label htmlFor="over">Over</label>
+      <label htmlFor="over">Death by overpopulation if neighbors {'>'} </label>
       <input name="over" onChange={props.onChange} value={props.over} id="over" max="8" type="number" min="0"/>
-      <label htmlFor="under">Under</label>
+      <br/>
+      <label htmlFor="under">Death by underpopulation if neighbors {'<'} </label>
       <input name="under" onChange={props.onChange} value={props.under} id="under" max="8" type="number" min="0"/>
-      <label htmlFor="lazarus">Lazarus</label>
+      <br/>
+      <label htmlFor="lazarus">Rebirth by reproduction if neighbors == </label>
       <input name="lazarus" onChange={props.onChange} value={props.lazarus} id="lazarus" max="8" type="number" min="0"/>
-      <button name="setDefaultRules" onClick={props.onChange} type="button" id="setDefaultRules">Set Default Rules</button>
+      <br/>
+      <button name="setDefaultRules" onClick={props.onChange} type="button" id="setDefaultRules">Reset Default Rules</button>
 
+      <br/>
       <br/>
 
       <button name="startAgain" onClick={props.onChange} type="button" id="startAgain">Start Again</button>
-      <button name="playPause" onClick={props.onChange} type="button" id="playPause">Play,Pause</button>
+      <button name="playPause" onClick={props.onChange} type="button" id="playPause">Play/Pause</button>
       <button name="step1" onClick={props.onChange} type="button" id="step1">Step Once</button>
     </form>
 

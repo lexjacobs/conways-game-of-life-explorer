@@ -9,10 +9,14 @@ const Gameboard = (props) => {
     gridTemplateColumns: `repeat(${props.width}, 1fr)`,
     gridGap: '2px'
   };
+  const cellStyle = {
+    width: '10px',
+    height: '10px'
+  };
 
   const cells = props.board.map((x,i) => {
     return(
-      <div key={i} className={x.getValue() === 0 ? 'cellOff' : 'cellOn'}></div>
+      <div style={cellStyle} key={i} className={x.getValue() === 0 ? 'cellOff' : 'cellOn'}></div>
     );
   });
 
