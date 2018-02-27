@@ -1,5 +1,10 @@
 export const ITERATE_BOARD = 'ITERATE_BOARD';
 export const SET_BOARD = 'SET_BOARD';
+export const SET_CHANCE = 'SET_CHANCE';
+export const SET_DEFAULT_RULES = 'SET_DEFAULT_RULES';
+export const SET_LAZARUS = 'SET_LAZARUS';
+export const SET_OVER = 'SET_OVER';
+export const SET_UNDER = 'SET_UNDER';
 export const SET_PREVIOUS_BOARD = 'SET_PREVIOUS_BOARD';
 export const SET_RULES = 'SET_RULES';
 export const SET_HEIGHT = 'SET_HEIGHT';

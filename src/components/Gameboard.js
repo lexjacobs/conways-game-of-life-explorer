@@ -7,7 +7,7 @@ const Gameboard = (props) => {
     height: '10px',
     display: 'grid',
     gridTemplateColumns: `repeat(${props.width}, 1fr)`,
-    gridGap: '3px'
+    gridGap: '2px'
   };
 
   const cells = props.board.map((x,i) => {

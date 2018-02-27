@@ -5,8 +5,8 @@ const defaultState = {
   previousBoards: [],
   board: [],
   chance: 50,
-  width: 8,
-  height: 8,
+  width: 74,
+  height: 32,
   under: 2,
   over: 3,
   lazarus: 3
@@ -34,6 +34,13 @@ export function boardState(state = defaultState, action) {
       board: populateBoard(action.board)
     };
 
+  case constants.SET_CHANCE:
+
+    return {
+      ...state,
+      chance: action.percent
+    };
+
   case constants.SET_HEIGHT:{
 
     const newBoard = initializeBoard(state.width, action.height, state.chance);
@@ -45,6 +52,7 @@ export function boardState(state = defaultState, action) {
     };
 
   }
+
   case constants.SET_WIDTH:{
 
     const newBoard = initializeBoard(action.width, state.height, state.chance);
@@ -56,6 +64,38 @@ export function boardState(state = defaultState, action) {
     };
 
   }
+
+  case constants.SET_OVER:{
+    return {
+      ...state,
+      over: action.value
+    };
+  }
+
+  case constants.SET_UNDER:{
+    return {
+      ...state,
+      under: action.value
+    };
+  }
+
+  case constants.SET_LAZARUS:{
+    return {
+      ...state,
+      lazarus: action.value
+    };
+  }
+
+  case constants.SET_DEFAULT_RULES:{
+    return {
+      ...state,
+      over: 3,
+      under: 2,
+      lazarus: 3,
+
+    };
+  }
+
   case constants.SET_PREVIOUS_BOARD:
 
     // if the board is no longer evolving, stop pushing to history

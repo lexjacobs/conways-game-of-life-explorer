@@ -13,6 +13,13 @@ export function setBoard(board) {
   };
 }
 
+export function setChance(percent) {
+  return {
+    type: constants.SET_CHANCE,
+    percent
+  };
+}
+
 export function setHeight(height) {
   return {
     type: constants.SET_HEIGHT,
@@ -27,9 +34,36 @@ export function setWidth(width) {
   };
 }
 
+export function setLazarus(value) {
+  return {
+    type: constants.SET_LAZARUS,
+    value
+  };
+}
+
+export function setOver(value) {
+  return {
+    type: constants.SET_OVER,
+    value
+  };
+}
+
+export function setUnder(value) {
+  return {
+    type: constants.SET_UNDER,
+    value
+  };
+}
+
 export function setPreviousBoard() {
   return {
     type: constants.SET_PREVIOUS_BOARD
+  };
+}
+
+export function setDefaultRules() {
+  return {
+    type: constants.SET_DEFAULT_RULES
   };
 }
 

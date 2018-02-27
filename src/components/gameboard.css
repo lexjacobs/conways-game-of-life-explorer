@@ -5,28 +5,20 @@ body {
 }
 
 .cellOn {
-  width: 60px;
-  height: 60px;
+  width: 10px;
+  height: 10px;
   background-color: rgba(0, 0, 0, .5);
 }
 
 .cellOff {
-  width: 60px;
-  height: 60px;
+  width: 10px;
+  height: 10px;
   background-color: rgb(255, 255, 255);
 }
 
-/* .grid {
-  width: 500px;
-  height: 500px;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-gap: 1.5px;
-} */
-
-.grid>* {
+.grid > * {
   padding: 0;
   border: 1px solid rgba(0, 0, 0, .5);
-  border-radius: 5px;
+  border-radius: 2px;
   color: #fff;
 }
