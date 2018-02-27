@@ -10,14 +10,17 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
   constructor(props) {
     super(props);
     this.state = {
-      timer: null
+      timer: null,
+      shouldIterate: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.resetBoard = this.resetBoard.bind(this);
   }
   componentDidMount() {
     var timer = setInterval(() => {
-      this.props.iterateBoard();
+      if (this.state.shouldIterate) {
+        this.props.iterateBoard();
+      }
     }, 250);
     this.setState({
       timer
@@ -64,6 +67,14 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     }
     if (e.target.name === 'startAgain') {
       this.resetBoard();
+    }
+    if (e.target.name === 'playPause') {
+      this.setState({
+        shouldIterate: !this.state.shouldIterate
+      });
+    }
+    if (e.target.name === 'step1') {
+      this.props.iterateBoard();
     }
     e.preventDefault();
   }
