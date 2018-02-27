@@ -9,6 +9,8 @@ const GameControls = (props) => {
       <input name="width" onChange={props.onChange} value={props.width} id="boardWidth" type="number" min="3"/>
       <label htmlFor="height">height</label>
       <input name="height" onChange={props.onChange} value={props.height} id="boardHeight" type="number" min="3"/>
+      <label htmlFor="delay">Delay in ms</label>
+      <input name="updateDelay" onChange={props.onChange} value={props.delay} id="delay" step="100" type="number" min="0"/>
       <button name="startAgain" onClick={props.onChange} type="button" id="startAgain">Start Again</button>
       <button name="playPause" onClick={props.onChange} type="button" id="playPause">Play,Pause</button>
       <button name="step1" onClick={props.onChange} type="button" id="step1">Step Once</button>
