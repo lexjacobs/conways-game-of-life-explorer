@@ -13,6 +13,20 @@ export function setBoard(board) {
   };
 }
 
+export function setHeight(height) {
+  return {
+    type: constants.SET_HEIGHT,
+    height
+  };
+}
+
+export function setWidth(width) {
+  return {
+    type: constants.SET_WIDTH,
+    width
+  };
+}
+
 export function setPreviousBoard() {
   return {
     type: constants.SET_PREVIOUS_BOARD

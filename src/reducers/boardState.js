@@ -14,12 +14,37 @@ const defaultState = {
 export function boardState(state = defaultState, action) {
   switch (action.type) {
 
+  case constants.ITERATE_BOARD: {
+    const oldBoard = extractValues(state.board);
+    const iteratedValues = iterateBoard(oldBoard, state.width, state.under, state.over, state.lazarus);
+    const iteratedBoard = updateCellValues(state.board, iteratedValues);
+
+    return {
+      ...state,
+      board: iteratedBoard
+    };
+  }
+
   case constants.SET_BOARD:
 
     // action.board should be a simple integer array
     return {
       ...state,
       board: populateBoard(action.board)
+    };
+
+  case constants.SET_HEIGHT:
+
+    return {
+      ...state,
+      height: action.height
+    };
+
+  case constants.SET_WIDTH:
+
+    return {
+      ...state,
+      width: action.width
     };
 
   case constants.SET_PREVIOUS_BOARD:
@@ -34,16 +59,7 @@ export function boardState(state = defaultState, action) {
       previousBoards: state.previousBoards.concat([state.board])
     };
 
-  case constants.ITERATE_BOARD: {
-    const oldBoard = extractValues(state.board);
-    const iteratedValues = iterateBoard(oldBoard, state.width, state.under, state.over, state.lazarus);
-    const iteratedBoard = updateCellValues(state.board, iteratedValues);
 
-    return {
-      ...state,
-      board: iteratedBoard
-    };
-  }
 
 
   default:

@@ -4,6 +4,7 @@ import {
 } from './boardState';
 import {InitializeCell, populateBoard} from '../helpers/boardMethods'
 import * as constants from '../constants/constants';
+import * as actions from '../actions/actions';
 
 test('validates that boards can be put into state', () => {
   var state = {
@@ -67,5 +68,41 @@ test('validates that boards can be iterated', () => {
   state = boardState(state, {type: 'ITERATE_BOARD'});
   expect(state.board).toEqual(      [{previousValue: 0, value: 1}, {previousValue: 1, value: 1}]);
   state = boardState(state, {type: 'ITERATE_BOARD'});
+});
+
+test('setHeight, setWidth will effectively change height / width', () => {
+  var state = {
+    width: 3,
+    height: 3,
+    mickeyMouse: 39
+  };
+  var action = actions.setHeight(42);
+  state = boardState(state, action);
+  expect(state).toEqual({
+    width: 3,
+    height: 42,
+    mickeyMouse: 39
+  });
+  action = actions.setWidth(5);
+  state = boardState(state, action);
+  expect(state).toEqual({
+    width: 5,
+    height: 42,
+    mickeyMouse: 39
+  });
+  action = actions.setWidth(15);
+  state = boardState(state, action);
+  expect(state).toEqual({
+    width: 15,
+    height: 42,
+    mickeyMouse: 39
+  });
+  action = actions.setHeight(15);
+  state = boardState(state, action);
+  expect(state).toEqual({
+    width: 15,
+    height: 15,
+    mickeyMouse: 39
+  });
 
 });
