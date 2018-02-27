@@ -1,9 +1,10 @@
 import * as constants from '../constants/constants';
-import {extractValues, iterateBoard, populateBoard, updateCellValues} from '../helpers/boardMethods';
+import {extractValues, initializeBoard, iterateBoard, populateBoard, updateCellValues} from '../helpers/boardMethods';
 
 const defaultState = {
   previousBoards: [],
   board: [],
+  chance: 50,
   width: 8,
   height: 8,
   under: 2,
@@ -33,20 +34,28 @@ export function boardState(state = defaultState, action) {
       board: populateBoard(action.board)
     };
 
-  case constants.SET_HEIGHT:
+  case constants.SET_HEIGHT:{
+
+    const newBoard = initializeBoard(state.width, action.height, state.chance);
 
     return {
       ...state,
+      board: populateBoard(newBoard),
       height: action.height
     };
 
-  case constants.SET_WIDTH:
+  }
+  case constants.SET_WIDTH:{
+
+    const newBoard = initializeBoard(action.width, state.height, state.chance);
 
     return {
       ...state,
+      board: populateBoard(newBoard),
       width: action.width
     };
 
+  }
   case constants.SET_PREVIOUS_BOARD:
 
     // if the board is no longer evolving, stop pushing to history

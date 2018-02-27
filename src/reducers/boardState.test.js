@@ -76,33 +76,7 @@ test('setHeight, setWidth will effectively change height / width', () => {
     height: 3,
     mickeyMouse: 39
   };
-  var action = actions.setHeight(42);
+  var action = actions.setHeight(2);
   state = boardState(state, action);
-  expect(state).toEqual({
-    width: 3,
-    height: 42,
-    mickeyMouse: 39
-  });
-  action = actions.setWidth(5);
-  state = boardState(state, action);
-  expect(state).toEqual({
-    width: 5,
-    height: 42,
-    mickeyMouse: 39
-  });
-  action = actions.setWidth(15);
-  state = boardState(state, action);
-  expect(state).toEqual({
-    width: 15,
-    height: 42,
-    mickeyMouse: 39
-  });
-  action = actions.setHeight(15);
-  state = boardState(state, action);
-  expect(state).toEqual({
-    width: 15,
-    height: 15,
-    mickeyMouse: 39
-  });
-
+  expect(state).toEqual( {'board': [{'previousValue': null, 'value': 0}, {'previousValue': null, 'value': 0}, {'previousValue': null, 'value': 0}, {'previousValue': null, 'value': 0}, {'previousValue': null, 'value': 0}, {'previousValue': null, 'value': 0}], 'height': 2, 'mickeyMouse': 39, 'width': 3});
 });

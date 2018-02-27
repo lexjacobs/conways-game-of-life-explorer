@@ -3,11 +3,11 @@ import './gameboard.css';
 
 const Gameboard = (props) => {
   const gridStyle = {
-    width: '500px',
-    height: '500px',
+    width: '10px',
+    height: '10px',
     display: 'grid',
     gridTemplateColumns: `repeat(${props.width}, 1fr)`,
-    gridGap: '3px',
+    gridGap: '3px'
   };
 
   const cells = props.board.map((x,i) => {

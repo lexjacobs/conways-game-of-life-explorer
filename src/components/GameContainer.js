@@ -21,7 +21,7 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
       if (this.state.shouldIterate) {
         this.props.iterateBoard();
       }
-    }, 250);
+    }, 1150);
     this.setState({
       timer
     });
@@ -59,11 +59,9 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
   handleChange(e) {
     if (e.target.name === 'width') {
       this.props.setWidth(+e.target.value);
-      this.resetBoard();
     }
     if (e.target.name === 'height') {
       this.props.setHeight(+e.target.value);
-      this.resetBoard();
     }
     if (e.target.name === 'startAgain') {
       this.resetBoard();
