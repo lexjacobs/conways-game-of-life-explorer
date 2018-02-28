@@ -7,11 +7,14 @@ const Gameboard = (props) => {
     height: '10px',
     display: 'grid',
     gridTemplateColumns: `repeat(${props.width}, 1fr)`,
-    gridGap: '2px'
+    gridGap: '1px'
   };
   const cellStyle = {
     width: '10px',
-    height: '10px'
+    height: '10px',
+    boxSizing: 'borderBox',
+    border: '1px solid rgba(0, 0, 0, .3)',
+    color: '#eee'
   };
 
   const cells = props.board.map((x,i) => {

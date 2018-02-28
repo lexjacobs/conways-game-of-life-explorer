@@ -1,20 +1,7 @@
-body {
-  box-sizing: border-box;
-  padding: 0;
-  border: 0;
-}
-
 .cellOn {
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, .6);
 }
 
 .cellOff {
   background-color: rgb(255, 255, 255);
-}
-
-.grid > * {
-  padding: 0;
-  border: 1px solid rgba(0, 0, 0, .5);
-  border-radius: 2px;
-  color: #fff;
 }
