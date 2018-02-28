@@ -5,8 +5,8 @@ const defaultState = {
   previousBoards: [],
   board: [],
   chance: 50,
-  width: 74,
-  height: 32,
+  width: 20,
+  height: 20,
   under: 2,
   over: 3,
   lazarus: 3
@@ -34,13 +34,6 @@ export function boardState(state = defaultState, action) {
       board: populateBoard(action.board)
     };
 
-  case constants.SET_CHANCE:
-
-    return {
-      ...state,
-      chance: action.percent
-    };
-
   case constants.SET_HEIGHT:{
 
     const newBoard = initializeBoard(state.width, action.height, state.chance);
@@ -64,28 +57,6 @@ export function boardState(state = defaultState, action) {
     };
 
   }
-
-  case constants.SET_OVER:{
-    return {
-      ...state,
-      over: action.value
-    };
-  }
-
-  case constants.SET_UNDER:{
-    return {
-      ...state,
-      under: action.value
-    };
-  }
-
-  case constants.SET_LAZARUS:{
-    return {
-      ...state,
-      lazarus: action.value
-    };
-  }
-
   case constants.SET_DEFAULT_RULES:{
     return {
       ...state,
@@ -108,8 +79,12 @@ export function boardState(state = defaultState, action) {
       previousBoards: state.previousBoards.concat([state.board])
     };
 
+  case constants.UPDATE_ATTRIBUTE:
 
-
+    return {
+      ...state,
+      [action.name]: +action.value
+    };
 
   default:
     return state;

@@ -12,10 +12,11 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     this.state = {
       timer: null,
       shouldIterate: true,
-      iterationDelay: 500
+      iterationDelay: 200
     };
     this.handleChange = this.handleChange.bind(this);
     this.resetBoard = this.resetBoard.bind(this);
+    this.updateAttribute = this.updateAttribute.bind(this);
   }
   componentDidMount() {
     var timer = setInterval(() => {
@@ -34,6 +35,9 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
   resetBoard() {
     this.props.setBoard(initializeBoard(this.props.width, this.props.height, this.props.chance));
   }
+  updateAttribute(e) {
+    this.props.updateAttribute(e.target.name, e.target.value);
+  }
   handleChange(e) {
     if (e.target.name === 'width') {
       this.props.setWidth(+e.target.value);
@@ -43,18 +47,6 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     }
     if (e.target.name === 'startAgain') {
       this.resetBoard();
-    }
-    if (e.target.name === 'chance') {
-      this.props.setChance(+e.target.value);
-    }
-    if (e.target.name === 'over') {
-      this.props.setOver(+e.target.value);
-    }
-    if (e.target.name === 'under') {
-      this.props.setUnder(+e.target.value);
-    }
-    if (e.target.name === 'lazarus') {
-      this.props.setLazarus(+e.target.value);
     }
     if (e.target.name === 'setDefaultRules') {
       this.props.setDefaultRules();
@@ -87,7 +79,7 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
 
   render() {
     return ( <div className="GameContainer">
-      <GameControls width={this.props.width} height={this.props.height} onChange={this.handleChange} delay={this.state.iterationDelay} chance={this.props.chance} over={this.props.over} under={this.props.under} lazarus={this.props.lazarus}/>
+      <GameControls width={this.props.width} height={this.props.height} onAttribute={this.updateAttribute} onChange={this.handleChange} delay={this.state.iterationDelay} chance={this.props.chance} over={this.props.over} under={this.props.under} lazarus={this.props.lazarus}/>
       <Gameboard height={+this.props.height} width={+this.props.width} board={this.props.board}/>
     </div>
     );
