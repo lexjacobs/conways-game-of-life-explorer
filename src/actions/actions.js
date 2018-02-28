@@ -6,6 +6,13 @@ export function iterateBoard() {
   };
 }
 
+export function nudgeBoard(direction) {
+  return {
+    type: constants.NUDGE_BOARD,
+    direction
+  };
+}
+
 export function setBoard(board) {
   return {
     type: constants.SET_BOARD,

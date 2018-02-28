@@ -80,3 +80,49 @@ test('setHeight, setWidth will effectively change height / width', () => {
   state = boardState(state, action);
   expect(state).toEqual( {'board': [{'previousValue': null, 'value': 0}, {'previousValue': null, 'value': 0}, {'previousValue': null, 'value': 0}, {'previousValue': null, 'value': 0}, {'previousValue': null, 'value': 0}, {'previousValue': null, 'value': 0}], 'height': 2, 'mickeyMouse': 39, 'width': 3});
 });
+
+test('NUDGE_BOARD will effectively move the board around', () => {
+  var state = {
+    width: 3,
+    board: [0,1,2,3,4,5,6,7,8]
+  };
+  var action = actions.nudgeBoard('up');
+  state = boardState(state, action);
+  expect(state).toEqual({
+    width: 3,
+    board: [3,4,5,6,7,8,0,1,2]
+  });
+
+  state = {
+    width: 3,
+    board: [0,1,2,3,4,5,6,7,8]
+  };
+  action = actions.nudgeBoard('down');
+  state = boardState(state, action);
+  expect(state).toEqual({
+    width: 3,
+    board: [6,7,8,0,1,2,3,4,5]
+  });
+
+  state = {
+    width: 3,
+    board: [0,1,2,3,4,5,6,7,8]
+  };
+  action = actions.nudgeBoard('right');
+  state = boardState(state, action);
+  expect(state).toEqual({
+    width: 3,
+    board: [2,0,1,5,3,4,8,6,7]
+  });
+
+  state = {
+    width: 3,
+    board: [0,1,2,3,4,5,6,7,8]
+  };
+  action = actions.nudgeBoard('left');
+  state = boardState(state, action);
+  expect(state).toEqual({
+    width: 3,
+    board: [1,2,0,4,5,3,7,8,6]
+  });
+});
