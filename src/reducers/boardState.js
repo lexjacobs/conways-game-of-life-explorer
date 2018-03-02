@@ -1,5 +1,5 @@
 import * as constants from '../constants/constants';
-import {initializeBoard, iterateBoard} from '../helpers/boardMethods';
+import {arrayFromWidthHeightWeight, iterateBoard} from '../helpers/boardMethods';
 
 const defaultState = {
   previousBoards: [],
@@ -108,7 +108,7 @@ export function boardState(state = defaultState, action) {
 
   case constants.SET_HEIGHT:{
 
-    const newBoard = initializeBoard(state.width, action.height, state.chance);
+    const newBoard = arrayFromWidthHeightWeight(state.width, action.height, state.chance);
 
     return {
       ...state,
@@ -120,7 +120,7 @@ export function boardState(state = defaultState, action) {
 
   case constants.SET_WIDTH:{
 
-    const newBoard = initializeBoard(action.width, state.height, state.chance);
+    const newBoard = arrayFromWidthHeightWeight(action.width, state.height, state.chance);
 
     return {
       ...state,
@@ -139,7 +139,7 @@ export function boardState(state = defaultState, action) {
     };
   }
 
-  case constants.UPDATE_ATTRIBUTE:
+  case constants.UPDATE_NUMERICAL_ATTRIBUTE:
 
     return {
       ...state,

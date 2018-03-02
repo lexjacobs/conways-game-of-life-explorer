@@ -52,7 +52,7 @@ export function cellCount(board, width, index) {
    height in rows
    randomness in whole number %
  */
-export function initializeBoard(width, height, weight = 0) {
+export function arrayFromWidthHeightWeight(width, height, weight = 0) {
   var blankBoard = initializeArray(width * height);
   var randomArray = randomizeArray(blankBoard, weight);
   return randomArray;

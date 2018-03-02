@@ -1,7 +1,7 @@
 /* global test expect */
 import {
   cellCount,
-  initializeBoard,
+  arrayFromWidthHeightWeight,
   iterateBoard,
 } from './boardMethods';
 
@@ -30,28 +30,28 @@ test('it correctly counts the number of living cells surrounding a cell, which i
 });
 
 test('it creates a board with the expected width, height, and default weighting', () => {
-  var result = initializeBoard(1, 1);
+  var result = arrayFromWidthHeightWeight(1, 1);
   expect(result).toEqual([0]);
-  result = initializeBoard(2, 1);
+  result = arrayFromWidthHeightWeight(2, 1);
   expect(result).toEqual([0, 0]);
-  result = initializeBoard(3, 3);
+  result = arrayFromWidthHeightWeight(3, 3);
   expect(result).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  result = initializeBoard(20, 10);
+  result = arrayFromWidthHeightWeight(20, 10);
   expect(result.length).toEqual(200);
   expect(result.includes(1)).toEqual(false);
-  result = initializeBoard(0, 0);
+  result = arrayFromWidthHeightWeight(0, 0);
   expect(result).toEqual([]);
 });
 
 test('it creates a board with the expected width, height, and defined weighting of 100%', () => {
-  var result = initializeBoard(20, 10, 100);
+  var result = arrayFromWidthHeightWeight(20, 10, 100);
   expect(result.length).toEqual(200);
   expect(result.includes(0)).toEqual(false);
   expect(result.includes(1)).toEqual(true);
 });
 
 test('it creates a board with the expected width, height, and defined weighting of 0%', () => {
-  var result = initializeBoard(20, 10, 0);
+  var result = arrayFromWidthHeightWeight(20, 10, 0);
   expect(result.length).toEqual(200);
   expect(result.includes(0)).toEqual(true);
   expect(result.includes(1)).toEqual(false);

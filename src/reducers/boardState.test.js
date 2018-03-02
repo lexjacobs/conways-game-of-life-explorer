@@ -51,6 +51,10 @@ test('setHeight, setWidth will effectively change height / width', () => {
   var action = actions.setHeight(2);
   state = boardState(state, action);
   expect(state).toEqual( {'board': [0, 0, 0, 0, 0, 0], 'height': 2, 'mickeyMouse': 39, 'width': 3});
+
+  action = actions.setWidth(2);
+  state = boardState(state, action);
+  expect(state).toEqual( {'board': [0, 0, 0, 0], 'height': 2, 'mickeyMouse': 39, 'width': 2});
 });
 
 test('NUDGE_BOARD will effectively move the board around', () => {
@@ -96,5 +100,51 @@ test('NUDGE_BOARD will effectively move the board around', () => {
   expect(state).toEqual({
     width: 3,
     board: [1,2,0,4,5,3,7,8,6]
+  });
+
+  // testing noop
+  state = {
+    width: 3,
+    board: [0,1,2,3,4,5,6,7,8]
+  };
+  action = actions.nudgeBoard('overThere');
+  state = boardState(state, action);
+  expect(state).toEqual({
+    width: 3,
+    board: [0,1,2,3,4,5,6,7,8]
+  });
+});
+
+test('setRules will put rules in place', () => {
+  var state = {
+    under: 5,
+    over: 10,
+    lazarus: 33,
+    somethingElse: 'biscuit'
+  };
+  var action = actions.setRules(1,2,3);
+  state = boardState(state, action);
+  expect(state).toEqual({
+    under: 1,
+    over: 2,
+    lazarus: 3,
+    somethingElse: 'biscuit'
+  });
+});
+
+test('updateNumericalAttribute will do what it promises', () => {
+  var state = {
+    under: 5,
+    over: 10,
+    lazarus: 33,
+    somethingElse: 18
+  };
+  var action = actions.updateNumericalAttribute('somethingElse', '35');
+  state = boardState(state, action);
+  expect(state).toEqual({
+    under: 5,
+    over: 10,
+    lazarus: 33,
+    somethingElse: 35
   });
 });

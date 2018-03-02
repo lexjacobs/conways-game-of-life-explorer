@@ -50,9 +50,9 @@ export function setRules(under, over, lazarus) {
   };
 }
 
-export function updateAttribute(name, value) {
+export function updateNumericalAttribute(name, value) {
   return {
-    type: constants.UPDATE_ATTRIBUTE,
+    type: constants.UPDATE_NUMERICAL_ATTRIBUTE,
     name,
     value
   };

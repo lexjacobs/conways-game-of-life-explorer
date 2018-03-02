@@ -5,7 +5,7 @@ import * as actions from '../actions/actions';
 import GameControls from './GameControls';
 import Gameboard from './Gameboard';
 import NudgeControls from './NudgeControls';
-import {initializeBoard} from '../helpers/boardMethods.js';
+import {arrayFromWidthHeightWeight} from '../helpers/boardMethods.js';
 
 export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     this.handleChange = this.handleChange.bind(this);
     this.handleNudge = this.handleNudge.bind(this);
     this.resetBoard = this.resetBoard.bind(this);
-    this.updateAttribute = this.updateAttribute.bind(this);
+    this.updateNumericalAttribute = this.updateNumericalAttribute.bind(this);
   }
   componentDidMount() {
     var timer = setInterval(() => {
@@ -35,10 +35,10 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     clearInterval(this.state.timer);
   }
   resetBoard() {
-    this.props.setBoard(initializeBoard(this.props.width, this.props.height, this.props.chance));
+    this.props.setBoard(arrayFromWidthHeightWeight(this.props.width, this.props.height, this.props.chance));
   }
-  updateAttribute(e) {
-    this.props.updateAttribute(e.target.name, e.target.value);
+  updateNumericalAttribute(e) {
+    this.props.updateNumericalAttribute(e.target.name, e.target.value);
   }
   handleNudge(e) {
     console.log(e.target.value);
@@ -85,7 +85,7 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
 
   render() {
     return ( <div className="GameContainer">
-      <GameControls width={this.props.width} height={this.props.height} onAttribute={this.updateAttribute} onChange={this.handleChange} delay={this.state.iterationDelay} chance={this.props.chance} over={this.props.over} under={this.props.under} lazarus={this.props.lazarus}/>
+      <GameControls width={this.props.width} height={this.props.height} onAttribute={this.updateNumericalAttribute} onChange={this.handleChange} delay={this.state.iterationDelay} chance={this.props.chance} over={this.props.over} under={this.props.under} lazarus={this.props.lazarus}/>
       <NudgeControls onClick={this.handleNudge}/>
       <Gameboard height={+this.props.height} width={+this.props.width} board={this.props.board}/>
     </div>
