@@ -1,5 +1,5 @@
 import * as constants from '../constants/constants';
-import {extractValues, initializeBoard, iterateBoard, populateBoard, updateCellValues} from '../helpers/boardMethods';
+import {initializeBoard, iterateBoard} from '../helpers/boardMethods';
 
 const defaultState = {
   previousBoards: [],
@@ -16,13 +16,10 @@ export function boardState(state = defaultState, action) {
   switch (action.type) {
 
   case constants.ITERATE_BOARD: {
-    const oldBoard = extractValues(state.board);
-    const iteratedValues = iterateBoard(oldBoard, state.width, state.under, state.over, state.lazarus);
-    const iteratedBoard = updateCellValues(state.board, iteratedValues);
 
     return {
       ...state,
-      board: iteratedBoard
+      board: iterateBoard(state.board, state.width, state.under, state.over, state.lazarus)
     };
   }
 
@@ -106,7 +103,7 @@ export function boardState(state = defaultState, action) {
     // action.board should be a simple integer array
     return {
       ...state,
-      board: populateBoard(action.board)
+      board: action.board
     };
 
   case constants.SET_HEIGHT:{
@@ -115,7 +112,7 @@ export function boardState(state = defaultState, action) {
 
     return {
       ...state,
-      board: populateBoard(newBoard),
+      board: newBoard,
       height: action.height
     };
 
@@ -127,32 +124,20 @@ export function boardState(state = defaultState, action) {
 
     return {
       ...state,
-      board: populateBoard(newBoard),
+      board: newBoard,
       width: action.width
     };
 
   }
-  case constants.SET_DEFAULT_RULES:{
+  case constants.SET_RULES:{
     return {
       ...state,
-      over: 3,
-      under: 2,
-      lazarus: 3,
+      under: action.rules.under,
+      over: action.rules.over,
+      lazarus: action.rules.lazarus,
 
     };
   }
-
-  case constants.SET_PREVIOUS_BOARD:
-
-    // if the board is no longer evolving, stop pushing to history
-    if(JSON.stringify(state.previousBoards.slice(-1)) === JSON.stringify([state.board])) {
-      return state;
-    }
-
-    return {
-      ...state,
-      previousBoards: state.previousBoards.concat([state.board])
-    };
 
   case constants.UPDATE_ATTRIBUTE:
 

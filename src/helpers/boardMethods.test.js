@@ -1,12 +1,8 @@
 /* global test expect */
 import {
   cellCount,
-  extractValues,
   initializeBoard,
-  InitializeCell,
   iterateBoard,
-  populateBoard,
-  updateCellValues
 } from './boardMethods';
 
 test('it correctly counts the number of living cells surrounding a cell, which is 0 if everyone is dead', () => {
@@ -87,54 +83,20 @@ test('it tests that a 5x5 board with a single glider repeats every 20 iterations
   expect(newBoard).toEqual(board);
 });
 
-test('it properly initializes a cell', () => {
-  // implicit value test
-  var cell = new InitializeCell();
-  expect(cell.getPreviousValue()).toEqual(null);
-  expect(cell.getValue()).toEqual(0);
-  // explicit value test
-  cell = new InitializeCell(1);
-  expect(cell.getPreviousValue()).toEqual(null);
-  expect(cell.getValue()).toEqual(1);
-  cell.setValue(42);
-  expect(cell.getPreviousValue()).toEqual(1);
-  expect(cell.getValue()).toEqual(42);
-});
-
 test('it converts and integer array to an array of cell objects with populateBoard', () => {
   var board = [];
-  var result = populateBoard(board);
+  var result = board;
   expect(result).toEqual([]);
   board = [0];
-  result = populateBoard(board);
-  expect(result).toEqual([new InitializeCell(0)]);
+  result = board;
+  expect(result).toEqual([0]);
   board = [1];
-  result = populateBoard(board);
-  expect(result).toEqual([new InitializeCell(1)]);
-});
-
-test('extractValues returns an array of values only from the complex cell objects', () => {
-  var board = [new InitializeCell(1), new InitializeCell(42)];
-  var result = extractValues(board);
-  expect(result).toEqual([1, 42]);
+  result = board;
+  expect(result).toEqual([1]);
 });
 
 test('updateCellValues fails with old and new arrays of different lengths', () => {
-  var oldBoard = [new InitializeCell(1), new InitializeCell(42)];
+  var oldBoard = [1, 42];
   var newBoard = [1, 2, 3];
   expect(() => updateCellValues(oldBoard, newBoard)).toThrow();
-});
-
-test('updateCellValues updates the complex cell objects with new integer values', () => {
-  var oldBoard = [new InitializeCell(10), new InitializeCell(42)];
-  var newBoard = [1, 2];
-  expect(oldBoard[0].getValue()).toBe(10);
-  expect(oldBoard[1].getValue()).toBe(42);
-  expect(oldBoard[0].getPreviousValue()).toBe(null);
-  expect(oldBoard[1].getPreviousValue()).toBe(null);
-  updateCellValues(oldBoard, newBoard);
-  expect(oldBoard[0].getValue()).toBe(1);
-  expect(oldBoard[1].getValue()).toBe(2);
-  expect(oldBoard[0].getPreviousValue()).toBe(10);
-  expect(oldBoard[1].getPreviousValue()).toBe(42);
 });

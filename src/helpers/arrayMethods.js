@@ -2,7 +2,7 @@
  return array of specified length, all zeros
  */
 export function initializeArray(len) {
-  return Array(len).fill(0);
+  return new Array(len).fill(0);
 }
 
 /*

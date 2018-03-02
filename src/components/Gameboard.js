@@ -19,7 +19,7 @@ const Gameboard = (props) => {
 
   const cells = props.board.map((x,i) => {
     return(
-      <div style={cellStyle} key={i} className={x.getValue() === 0 ? 'cellOff' : 'cellOn'}></div>
+      <div style={cellStyle} key={i} className={x === 0 ? 'cellOff' : 'cellOn'}></div>
     );
   });
 

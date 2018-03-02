@@ -34,16 +34,9 @@ export function setWidth(width) {
   };
 }
 
-export function setPreviousBoard() {
-  return {
-    type: constants.SET_PREVIOUS_BOARD
-  };
-}
-
 export function setDefaultRules() {
-  return {
-    type: constants.SET_DEFAULT_RULES
-  };
+  // default rules: 2, 3, 3
+  return setRules.call(null, 2, 3, 3);
 }
 
 export function setRules(under, over, lazarus) {

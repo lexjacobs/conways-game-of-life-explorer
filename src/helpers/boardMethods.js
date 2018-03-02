@@ -45,28 +45,6 @@ export function cellCount(board, width, index) {
   return total;
 }
 
-/* extract only the values from an array of complex cell objects */
-export function extractValues(board) {
-  return board.map(x => x.getValue());
-}
-
-/* create a board with complex cell objects from a simple integer array */
-export function populateBoard(board) {
-  return board.map(x => new InitializeCell(x));
-}
-
-/* return complex cell objects with new integer values (pure) */
-export function updateCellValues(oldBoard, newValues) {
-  if (oldBoard.length !== newValues.length) {
-    throw new Error('Attempting to update oldBoard with new values of different length');
-  }
-  var updatedBoard = oldBoard.slice();
-  newValues.forEach(function(value, i) {
-    updatedBoard[i].setValue(value);
-  });
-  return updatedBoard;
-}
-
 /*
  create a board representation (just a flat array)
  inputs:
@@ -80,32 +58,12 @@ export function initializeBoard(width, height, weight = 0) {
   return randomArray;
 }
 
-/* Cells have the ability to store their own value, as well as keep a record of their last value. Getters and setters included */
-
-export function InitializeCell(value = 0) {
-  this.value = value;
-  this.previousValue = null;
-}
-
-InitializeCell.prototype.getValue = function() {
-  return this.value;
-};
-
-InitializeCell.prototype.getPreviousValue = function() {
-  return this.previousValue;
-};
-
-InitializeCell.prototype.setValue = function(value) {
-  this.previousValue = this.value;
-  this.value = value;
-};
-
 /*
  Default rules:
- Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
- Any live cell with two or three live neighbours lives on to the next generation.
- Any live cell with more than three live neighbours dies, as if by overpopulation.
- Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+ Any live cell with fewer than 2 live neighbours dies, as if caused by underpopulation.
+ Any live cell with 2 or 3 live neighbours lives on to the next generation.
+ Any live cell with more than 3 live neighbours dies, as if by overpopulation.
+ Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  */
 export function iterateBoard(board, width, under = 2, over = 3, lazarus = 3) {
   return board.map((cell, i) => {
