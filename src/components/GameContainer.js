@@ -67,7 +67,9 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
       this.props.setDefaultRules();
     }
     if (e.target.name === 'clearBoard') {
-      this.props.setBoard(arrayFromWidthHeightWeight(this.props.width, this.props.height, 0));
+      // no reason to iterate a blank board
+      this.setState({shouldIterate: false});
+      this.props.clearBoard();
     }
     if (e.target.name === 'updateDelay') {
 

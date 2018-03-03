@@ -2,18 +2,26 @@ import * as constants from '../constants/constants';
 import {arrayFromWidthHeightWeight, iterateBoard} from '../helpers/boardMethods';
 
 const defaultState = {
-  previousBoards: [],
   board: [],
   chance: 50,
-  width: 74,
   height: 32,
-  under: 2,
+  lazarus: 3,
   over: 3,
-  lazarus: 3
+  previousBoards: [],
+  under: 2,
+  width: 74
 };
 
 export function boardState(state = defaultState, action) {
   switch (action.type) {
+
+  case constants.CLEAR_BOARD: {
+
+    return {
+      ...state,
+      board: state.board.map(x => 0)
+    };
+  }
 
   case constants.FLIP_CELL: {
 

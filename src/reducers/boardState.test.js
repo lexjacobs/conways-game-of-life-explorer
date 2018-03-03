@@ -195,3 +195,14 @@ test('updateNumericalAttribute will do what it promises', () => {
     somethingElse: 35
   });
 });
+
+test('validates CLEAR_BOARD returns an array of all zeros', () => {
+  var state = {
+    board: [1,0,1,0,0,1,0]
+  };
+  var action = actions.clearBoard();
+  state = boardState(state, action);
+  expect(state).toEqual({
+    board: [0,0,0,0,0,0,0]
+  });
+});

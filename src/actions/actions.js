@@ -1,5 +1,11 @@
 import * as constants from '../constants/constants';
 
+export function clearBoard() {
+  return {
+    type: constants.CLEAR_BOARD
+  };
+}
+
 export function flipCell(position) {
   return {
     type: constants.FLIP_CELL,
