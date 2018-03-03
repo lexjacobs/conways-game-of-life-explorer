@@ -17,11 +17,13 @@ const Gameboard = (props) => {
     color: '#eee'
   };
 
-  const cells = props.board.map((x,i) => {
-    return(
-      <div style={cellStyle} data-num={i} key={i} className={x === 0 ? 'cellOff' : 'cellOn'}></div>
+  // refactor from higher order function for speed
+  const cells = [];
+  for (var i = 0; i < props.board.length; i++) {
+    let x = props.board[i];
+    cells.push(<div style={cellStyle} data-num={i} key={i} className={x === 0 ? 'cellOff' : 'cellOn'}></div>
     );
-  });
+  }
 
   return (<div onClick={props.onClick} style={gridStyle} className="grid">{cells}</div>);
 };

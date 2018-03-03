@@ -6,9 +6,13 @@ export function initializeBlankArray(len) {
 }
 
 /*
- randomly populate zeros and ones, with probability of 1 === weight (in %)
+ randomly populate zeros and ones, with probability of returning `1` === weight (in %)
+ input arguments:
+  len: length integer
+  weight: integer 0-100,
+
  */
-export function randomizeArray(arr, weight = 50) {
+export function randomizeArray(array, weight = 50) {
 
   function calculateRandom(weight) {
     // example weight of 100
@@ -17,7 +21,12 @@ export function randomizeArray(arr, weight = 50) {
     return (Math.random() * 100) < weight ? 1 : 0;
   }
 
-  return arr.map(x => calculateRandom(weight));
+  let result = [];
+  for(var i = 0; i < array.length; i++) {
+    result.push(calculateRandom(weight));
+  }
+
+  return result;
 }
 
 /*

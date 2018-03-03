@@ -36,8 +36,8 @@ export function cellCount(board, width, index) {
     wrapTopBottom(indexRight, 1, width, board.length)
 
   ].forEach((position) => {
-    var living = board[position];
-    if (living) {
+    var currentState = board[position];
+    if (currentState === 1) {
       total++;
     }
   });
@@ -61,12 +61,16 @@ export function arrayFromWidthHeightWeight(width, height, weight = 0) {
 /*
  Default rules:
  Any live cell with fewer than 2 live neighbours dies, as if caused by underpopulation.
- Any live cell with 2 or 3 live neighbours lives on to the next generation.
+ Any live cell with 2 or 3 live neighbours lives on to the ext generation.
  Any live cell with more than 3 live neighbours dies, as if by overpopulation.
  Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  */
 export function iterateBoard(board, width, under = 2, over = 3, lazarus = 3) {
-  return board.map((cell, i) => {
+
+  let result = [];
+
+  for(var i = 0; i < board.length; i++) {
+    let cell = board[i];
     let count = cellCount(board, width, i);
 
     // if cell is alive
@@ -74,22 +78,24 @@ export function iterateBoard(board, width, under = 2, over = 3, lazarus = 3) {
 
       // live cell over / underpopulation
       if (count < under || count > over) {
-        return 0;
+        result.push(0);
+      } else {
+        // otherwise it remains alive
+        result.push(1);
       }
-
-      // otherwise it lives
-      return cell;
 
     // cell is dead
     } else {
       if (count === lazarus) {
-        return 1;
+        result.push(1);
+      } else {
+        // otherwise it remains dead
+        result.push(0);
       }
 
-      // otherwise it remains dead
-      return cell;
-
     }
+  }
 
-  });
+  return  result;
+
 }
