@@ -12,18 +12,17 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     super(props);
     this.state = {
       timer: null,
-      shouldIterate: true,
       iterationDelay: 200
     };
-    this.handleChange = this.handleChange.bind(this);
     this.handleCellClick = this.handleCellClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleNudge = this.handleNudge.bind(this);
     this.resetBoard = this.resetBoard.bind(this);
     this.updateNumericalAttribute = this.updateNumericalAttribute.bind(this);
   }
   componentDidMount() {
     var timer = setInterval(() => {
-      if (this.state.shouldIterate) {
+      if (this.props.shouldIterate) {
         this.props.iterateBoard();
       }
     }, this.state.iterationDelay);
@@ -68,7 +67,7 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     }
     if (e.target.name === 'clearBoard') {
       // no reason to iterate a blank board
-      this.setState({shouldIterate: false});
+      this.props.setShouldIterate(false);
       this.props.clearBoard();
     }
     if (e.target.name === 'updateDelay') {
@@ -76,7 +75,7 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
       this.setState({iterationDelay: +e.target.value}, () => {
         clearInterval(this.state.timer);
         var timer = setInterval(() => {
-          if (this.state.shouldIterate) {
+          if (this.props.shouldIterate) {
             this.props.iterateBoard();
           }
         }, this.state.iterationDelay);
@@ -87,9 +86,7 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
 
     }
     if (e.target.name === 'playPause') {
-      this.setState({
-        shouldIterate: !this.state.shouldIterate
-      });
+      this.props.setShouldIterate(!this.props.shouldIterate);
     }
     if (e.target.name === 'step1') {
       this.props.iterateBoard();

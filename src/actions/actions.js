@@ -13,6 +13,13 @@ export function flipCell(position) {
   };
 }
 
+export function setShouldIterate(value) {
+  return {
+    type: constants.SET_SHOULD_ITERATE,
+    value
+  };
+}
+
 export function iterateBoard() {
   return {
     type: constants.ITERATE_BOARD

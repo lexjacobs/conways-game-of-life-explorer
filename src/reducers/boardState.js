@@ -8,6 +8,7 @@ const defaultState = {
   lazarus: 3,
   over: 3,
   previousBoards: [],
+  shouldIterate: true,
   under: 2,
   width: 74
 };
@@ -34,6 +35,14 @@ export function boardState(state = defaultState, action) {
           return x;
         }
       })
+    };
+  }
+
+  case constants.SET_SHOULD_ITERATE: {
+
+    return {
+      ...state,
+      shouldIterate: action.value
     };
   }
 

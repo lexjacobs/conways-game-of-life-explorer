@@ -206,3 +206,28 @@ test('validates CLEAR_BOARD returns an array of all zeros', () => {
     board: [0,0,0,0,0,0,0]
   });
 });
+
+test('validates SET_SHOULD_ITERATE sets the proper value', () => {
+  var state = {
+    gonzo: 'clownSchool',
+    shouldIterate: true
+  };
+  var action = actions.setShouldIterate(false);
+  state = boardState(state, action);
+  expect(state).toEqual({
+    gonzo: 'clownSchool',
+    shouldIterate: false
+  });
+  action = actions.setShouldIterate(true);
+  state = boardState(state, action);
+  expect(state).toEqual({
+    gonzo: 'clownSchool',
+    shouldIterate: true
+  });
+  action = actions.setShouldIterate(!state.shouldIterate);
+  state = boardState(state, action);
+  expect(state).toEqual({
+    gonzo: 'clownSchool',
+    shouldIterate: false
+  });
+});

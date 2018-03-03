@@ -81,3 +81,10 @@ test('updateNumericalAttribute returns object as expected', () => {
     value: 1320
   });
 });
+
+test('setShouldIterate returns object as expected', () => {
+  expect(actions.setShouldIterate('value')).toEqual({
+    type: 'SET_SHOULD_ITERATE',
+    value: 'value'
+  });
+});

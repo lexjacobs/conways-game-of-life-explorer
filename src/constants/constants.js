@@ -1,5 +1,6 @@
 export const CLEAR_BOARD = 'CLEAR_BOARD';
 export const FLIP_CELL = 'FLIP_CELL';
+export const SET_SHOULD_ITERATE = 'SET_SHOULD_ITERATE';
 export const ITERATE_BOARD = 'ITERATE_BOARD';
 export const NUDGE_BOARD = 'NUDGE_BOARD';
 export const SET_BOARD = 'SET_BOARD';
