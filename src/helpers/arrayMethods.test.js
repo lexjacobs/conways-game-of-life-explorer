@@ -1,11 +1,11 @@
 /* global test expect */
-import { initializeArray, randomizeArray, wrapSide, wrapTopBottom } from './arrayMethods';
+import { initializeBlankArray, randomizeArray, wrapSide, wrapTopBottom } from './arrayMethods';
 
 test('testing array initialization', () => {
-  expect(initializeArray(0)).toEqual([]);
-  expect(initializeArray(1)).toEqual([0]);
-  expect(initializeArray(0)).not.toEqual([0]);
-  expect(initializeArray(3)).toEqual([0, 0, 0]);
+  expect(initializeBlankArray(0)).toEqual([]);
+  expect(initializeBlankArray(1)).toEqual([0]);
+  expect(initializeBlankArray(0)).not.toEqual([0]);
+  expect(initializeBlankArray(3)).toEqual([0, 0, 0]);
 });
 
 test('testing randomizer rate with default weight', () => {

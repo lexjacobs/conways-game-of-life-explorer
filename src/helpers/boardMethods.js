@@ -1,5 +1,5 @@
 import {
-  initializeArray,
+  initializeBlankArray,
   randomizeArray,
   wrapSide,
   wrapTopBottom
@@ -53,7 +53,7 @@ export function cellCount(board, width, index) {
    randomness in whole number %
  */
 export function arrayFromWidthHeightWeight(width, height, weight = 0) {
-  var blankBoard = initializeArray(width * height);
+  var blankBoard = initializeBlankArray(width * height);
   var randomArray = randomizeArray(blankBoard, weight);
   return randomArray;
 }

@@ -1,7 +1,7 @@
 /*
  return array of specified length, all zeros
  */
-export function initializeArray(len) {
+export function initializeBlankArray(len) {
   return new Array(len).fill(0);
 }
 
@@ -11,9 +11,9 @@ export function initializeArray(len) {
 export function randomizeArray(arr, weight = 50) {
 
   function calculateRandom(weight) {
-    // example weight === 100
+    // example weight of 100
     // will always return 1
-    // and weight === 0, always return 0
+    // and weight of 0 will always return 0
     return (Math.random() * 100) < weight ? 1 : 0;
   }
 
@@ -21,14 +21,16 @@ export function randomizeArray(arr, weight = 50) {
 }
 
 /*
- useful for navigating array as a toroid
+ wrapSide: useful for navigating array as a toroid
  https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Algorithms
  moving off the right edge continues on the left edge and vice versa.
 
- arguments:
+ input arguments:
   start: starting array index
   add: (positive or negative) move forward or backward that many indices
-  width: number of columns
+  width: number of columns on board
+
+ output: integer (array position)
  */
 
 export function wrapSide(start, add, width) {
