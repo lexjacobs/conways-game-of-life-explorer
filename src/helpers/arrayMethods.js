@@ -1,12 +1,14 @@
+import {returnDead, returnLiving} from './livingDeadDefinitions';
+
 /*
  return array of specified length, all zeros
  */
 export function initializeBlankArray(len) {
-  return new Array(len).fill(0);
+  return new Array(len).fill(returnDead());
 }
 
 /*
- randomly populate zeros and ones, with probability of returning `1` === weight (in %)
+ randomly populate array with living (1) and dead (0), with probability of returning living (1) === weight (in %)
  input arguments:
   len: length integer
   weight: integer 0-100,
@@ -14,11 +16,14 @@ export function initializeBlankArray(len) {
  */
 export function randomizeArray(array, weight = 50) {
 
+  let living = returnLiving();
+  let dead = returnDead();
+
   function calculateRandom(weight) {
     // example weight of 100
     // will always return 1
     // and weight of 0 will always return 0
-    return (Math.random() * 100) < weight ? 1 : 0;
+    return (Math.random() * 100) < weight ? living : dead;
   }
 
   let result = [];

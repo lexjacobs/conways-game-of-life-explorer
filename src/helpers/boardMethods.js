@@ -5,6 +5,8 @@ import {
   wrapTopBottom
 } from './arrayMethods';
 
+import {isLiving, isDead, returnDead, returnLiving} from './livingDeadDefinitions';
+
 /*
  returns the number of living (1) cells surrounding cell at index
  inputs:
@@ -37,7 +39,7 @@ export function cellCount(board, width, index) {
 
   ].forEach((position) => {
     var currentState = board[position];
-    if (currentState === 1) {
+    if (isLiving(currentState)) {
       total++;
     }
   });
@@ -68,31 +70,35 @@ export function arrayFromWidthHeightWeight(width, height, weight = 0) {
 export function iterateBoard(board, width, under = 2, over = 3, lazarus = 3) {
 
   let result = [];
+  let deadCell = returnDead();
+  let livingCell = returnLiving();
 
   for(var i = 0; i < board.length; i++) {
     let cell = board[i];
     let count = cellCount(board, width, i);
 
     // if cell is alive
-    if (cell === 1) {
+    if (isLiving(cell)) {
 
       // live cell over / underpopulation
       if (count < under || count > over) {
-        result.push(0);
+        result.push(deadCell);
       } else {
         // otherwise it remains alive
-        result.push(1);
+        result.push(livingCell);
       }
 
     // cell is dead
-    } else {
+    } else if (isDead(cell)) {
       if (count === lazarus) {
-        result.push(1);
+        result.push(livingCell);
       } else {
         // otherwise it remains dead
-        result.push(0);
+        result.push(deadCell);
       }
 
+    } else {
+      throw new Error('unhandled cell value passed into iterateBoard');
     }
   }
 

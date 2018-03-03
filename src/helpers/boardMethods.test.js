@@ -83,6 +83,15 @@ test('it tests that a 5x5 board with a single glider repeats every 20 iterations
   expect(newBoard).toEqual(board);
 });
 
+test('iterateBoard will fail when handling array with nonstandard cell values', () => {
+  let board = [0,1,0,1];
+  let width = 2;
+  expect(() => iterateBoard(board, width)).not.toThrow();
+  board = [0,1,0,2];
+  expect(() => iterateBoard(board, width)).toThrow();
+});
+
+
 test('it converts and integer array to an array of cell objects with populateBoard', () => {
   var board = [];
   var result = board;

@@ -156,17 +156,13 @@ test('NUDGE_BOARD will effectively move the board around', () => {
     board: [1,2,0,4,5,3,7,8,6]
   });
 
-  // testing noop
+  // testing rogue direction should throw
   state = {
     width: 3,
     board: [0,1,2,3,4,5,6,7,8]
   };
   action = actions.nudgeBoard('overThere');
-  state = boardState(state, action);
-  expect(state).toEqual({
-    width: 3,
-    board: [0,1,2,3,4,5,6,7,8]
-  });
+  expect(() => boardState(state, action)).toThrow();
 });
 
 test('setRules will put rules in place', () => {

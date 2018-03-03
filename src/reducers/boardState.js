@@ -1,5 +1,6 @@
 import * as constants from '../constants/constants';
 import {arrayFromWidthHeightWeight, iterateBoard} from '../helpers/boardMethods';
+import {flipLivingDead, isLiving, isDead, returnDead, returnLiving} from '../helpers/livingDeadDefinitions';
 
 const defaultState = {
   board: [],
@@ -17,10 +18,10 @@ export function boardState(state = defaultState, action) {
   switch (action.type) {
 
   case constants.CLEAR_BOARD: {
-
+    let deadCell = returnDead();
     return {
       ...state,
-      board: state.board.map(x => 0)
+      board: state.board.map(x => deadCell)
     };
   }
 
@@ -35,7 +36,7 @@ export function boardState(state = defaultState, action) {
 
     let newBoard = state.board.slice();
     let oldValue = newBoard[position];
-    let newValue = Math.abs(oldValue - 1);
+    let newValue = flipLivingDead(oldValue);
     newBoard[position] = newValue;
 
     return {
@@ -127,7 +128,7 @@ export function boardState(state = defaultState, action) {
 
     // noop, just in case
     if (updatedBoard === undefined) {
-      return state;
+      throw new Error('NUDGE_BOARD threw rogue direction');
     }
 
     return {
