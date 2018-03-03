@@ -96,7 +96,10 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
   }
 
   render() {
-    return ( <div className="GameContainer">
+    return ( <div className='GameContainer'>
+
+      <a href='https://github.com/lexjacobs/conways-game-of-life-explorer'><img style={{position: 'absolute', top: 0, right: 0, border: 0, width: '10%', height: 'auto'}} src='https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png' alt='Fork me on GitHub'/></a>
+
       <GameControls width={this.props.width} height={this.props.height} onAttribute={this.updateNumericalAttribute} onChange={this.handleChange} delay={this.state.iterationDelay} chance={this.props.chance} over={this.props.over} under={this.props.under} lazarus={this.props.lazarus}/>
       <NudgeControls onClick={this.handleNudge}/>
       <Gameboard height={+this.props.height} width={+this.props.width} board={this.props.board} onClick={this.handleCellClick}/>
