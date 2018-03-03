@@ -5,19 +5,67 @@ import {
 import * as constants from '../constants/constants';
 import * as actions from '../actions/actions';
 
+test('validates FLIP_CELL can change the value of a single cell', () => {
+  var state = {
+    board: [],
+  };
+  var action = {
+    type: constants.FLIP_CELL,
+    position: 0
+  };
+  state = boardState(state, action);
+  expect(state.board).toEqual([]);
+  state = {
+    board: [0],
+  };
+  action = {
+    type: constants.FLIP_CELL,
+    position: 0
+  };
+  state = boardState(state, action);
+  expect(state.board).toEqual([1]);
+  state = {
+    board: [1],
+  };
+  action = {
+    type: constants.FLIP_CELL,
+    position: 0
+  };
+  state = boardState(state, action);
+  expect(state.board).toEqual([0]);
+  state = {
+    // don't actually put a 9 in there, just making sure it is left alone
+    board: [1,0,9],
+  };
+  action = {
+    type: constants.FLIP_CELL,
+    position: 1
+  };
+  state = boardState(state, action);
+  expect(state.board).toEqual([1,1,9]);
+  state = {
+    // don't actually put a 9 in there, just making sure it is left alone
+    board: [1,0,9],
+  };
+  action = {
+    type: constants.FLIP_CELL,
+    position: 0
+  };
+  state = boardState(state, action);
+  expect(state.board).toEqual([0,0,9]);
+});
+
+
 test('validates that boards can be put into state', () => {
   var state = {
     board: [],
-    previousBoards: []
   };
   var action = {
     type: constants.SET_BOARD,
     board: [3, 2, 1]
   };
   expect(state.board).toEqual([]);
-  expect(state.previousBoards).toEqual([]);
   state = boardState(state, action);
-  expect(state.previousBoards).toEqual([]);
   expect(state.board).toEqual([3, 2, 1]);
   action = {
     type: constants.SET_BOARD,
@@ -25,7 +73,6 @@ test('validates that boards can be put into state', () => {
   };
   state = boardState(state, action);
   expect(state.board).toEqual([4, 5, 6]);
-  expect(state.previousBoards).toEqual([]);
 });
 
 test('validates that boards can be iterated', () => {

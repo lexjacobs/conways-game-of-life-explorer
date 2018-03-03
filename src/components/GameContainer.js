@@ -16,6 +16,7 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
       iterationDelay: 200
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleCellClick = this.handleCellClick.bind(this);
     this.handleNudge = this.handleNudge.bind(this);
     this.resetBoard = this.resetBoard.bind(this);
     this.updateNumericalAttribute = this.updateNumericalAttribute.bind(this);
@@ -40,8 +41,16 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
   updateNumericalAttribute(e) {
     this.props.updateNumericalAttribute(e.target.name, e.target.value);
   }
+  handleCellClick(e) {
+    let cell = e.target.getAttribute('data-num');
+    e.preventDefault();
+    // in the case of clicking the grid itself
+    if (cell === null) {
+      return;
+    }
+    this.props.flipCell(cell);
+  }
   handleNudge(e) {
-    console.log(e.target.value);
     this.props.nudgeBoard(e.target.value);
   }
   handleChange(e) {
@@ -56,6 +65,9 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     }
     if (e.target.name === 'setDefaultRules') {
       this.props.setDefaultRules();
+    }
+    if (e.target.name === 'clearBoard') {
+      this.props.setBoard(arrayFromWidthHeightWeight(this.props.width, this.props.height, 0));
     }
     if (e.target.name === 'updateDelay') {
 
@@ -87,7 +99,7 @@ export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer 
     return ( <div className="GameContainer">
       <GameControls width={this.props.width} height={this.props.height} onAttribute={this.updateNumericalAttribute} onChange={this.handleChange} delay={this.state.iterationDelay} chance={this.props.chance} over={this.props.over} under={this.props.under} lazarus={this.props.lazarus}/>
       <NudgeControls onClick={this.handleNudge}/>
-      <Gameboard height={+this.props.height} width={+this.props.width} board={this.props.board}/>
+      <Gameboard height={+this.props.height} width={+this.props.width} board={this.props.board} onClick={this.handleCellClick}/>
     </div>
     );
   }

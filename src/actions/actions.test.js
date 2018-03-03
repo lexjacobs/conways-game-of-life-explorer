@@ -1,6 +1,13 @@
 /* global test expect */
 import * as actions from './actions';
 
+test('flipCell returns object as expected', () => {
+  expect(actions.flipCell(42)).toEqual({
+    type: 'FLIP_CELL',
+    position: 42
+  });
+});
+
 test('iterateBoard returns object as expected', () => {
   expect(actions.iterateBoard()).toEqual({
     type: 'ITERATE_BOARD'

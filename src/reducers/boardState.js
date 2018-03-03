@@ -15,6 +15,20 @@ const defaultState = {
 export function boardState(state = defaultState, action) {
   switch (action.type) {
 
+  case constants.FLIP_CELL: {
+
+    return {
+      ...state,
+      board: state.board.map((x, i) => {
+        if (i === +action.position) {
+          return Math.abs(x - 1);
+        } else {
+          return x;
+        }
+      })
+    };
+  }
+
   case constants.ITERATE_BOARD: {
 
     return {

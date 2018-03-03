@@ -1,3 +1,4 @@
+export const FLIP_CELL = 'FLIP_CELL';
 export const ITERATE_BOARD = 'ITERATE_BOARD';
 export const NUDGE_BOARD = 'NUDGE_BOARD';
 export const SET_BOARD = 'SET_BOARD';

@@ -1,5 +1,12 @@
 import * as constants from '../constants/constants';
 
+export function flipCell(position) {
+  return {
+    type: constants.FLIP_CELL,
+    position
+  };
+}
+
 export function iterateBoard() {
   return {
     type: constants.ITERATE_BOARD

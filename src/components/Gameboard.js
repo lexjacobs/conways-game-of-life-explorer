@@ -7,7 +7,7 @@ const Gameboard = (props) => {
     height: '10px',
     display: 'grid',
     gridTemplateColumns: `repeat(${props.width}, 1fr)`,
-    gridGap: '1px'
+    gridGap: '0px'
   };
   const cellStyle = {
     width: '10px',
@@ -19,11 +19,11 @@ const Gameboard = (props) => {
 
   const cells = props.board.map((x,i) => {
     return(
-      <div style={cellStyle} key={i} className={x === 0 ? 'cellOff' : 'cellOn'}></div>
+      <div style={cellStyle} data-num={i} key={i} className={x === 0 ? 'cellOff' : 'cellOn'}></div>
     );
   });
 
-  return (<div style={gridStyle} className="grid">{cells}</div>);
+  return (<div onClick={props.onClick} style={gridStyle} className="grid">{cells}</div>);
 };
 
 export default Gameboard;

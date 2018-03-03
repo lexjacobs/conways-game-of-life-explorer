@@ -33,6 +33,7 @@ const GameControls = (props) => {
     <button name="startAgain" onClick={props.onChange} type="button" id="startAgain">Start Again</button>
     <button name="playPause" onClick={props.onChange} type="button" id="playPause">Play/Pause</button>
     <button name="step1" onClick={props.onChange} type="button" id="step1">Step Once</button>
+    <button name="clearBoard" onClick={props.onChange} type="button" id="clearBoard">Clear Board</button>
 
   </div>);
 };
