@@ -25,16 +25,22 @@ export function boardState(state = defaultState, action) {
   }
 
   case constants.FLIP_CELL: {
+    let len = state.board.length;
+    let position = parseInt(action.position, 10);
+
+    // if len is 0, or position >= len, throw range error
+    if (len === 0 || position >= len) {
+      throw new RangeError('trying to flip nonexistent cell');
+    }
+
+    let newBoard = state.board.slice();
+    let oldValue = newBoard[position];
+    let newValue = Math.abs(oldValue - 1);
+    newBoard[position] = newValue;
 
     return {
       ...state,
-      board: state.board.map((x, i) => {
-        if (i === +action.position) {
-          return Math.abs(x - 1);
-        } else {
-          return x;
-        }
-      })
+      board: newBoard
     };
   }
 

@@ -13,8 +13,15 @@ test('validates FLIP_CELL can change the value of a single cell', () => {
     type: constants.FLIP_CELL,
     position: 0
   };
-  state = boardState(state, action);
-  expect(state.board).toEqual([]);
+  expect(() => state = boardState(state, action)).toThrow('trying to flip nonexistent cell');
+  state = {
+    board: [0],
+  };
+  action = {
+    type: constants.FLIP_CELL,
+    position: 1
+  };
+  expect(() => state = boardState(state, action)).toThrow('trying to flip nonexistent cell');
   state = {
     board: [0],
   };

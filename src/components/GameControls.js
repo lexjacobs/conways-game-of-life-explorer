@@ -30,7 +30,7 @@ const GameControls = (props) => {
     <br/>
     <br/>
 
-    <button name="startAgain" onClick={props.onChange} type="button" id="startAgain">Start Again</button>
+    <button name="startAgain" onClick={props.onChange} type="button" id="startAgain">Reset Board</button>
     <button name="playPause" onClick={props.onChange} type="button" id="playPause">{props.shouldIterate === true ? 'Stop Iteration' : 'Start Iteration'}</button>
     <button name="step1" onClick={props.onChange} type="button" id="step1">Step Once</button>
     <button name="clearBoard" onClick={props.onChange} type="button" id="clearBoard">Clear Board</button>
