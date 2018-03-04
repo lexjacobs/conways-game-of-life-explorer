@@ -8,6 +8,19 @@ import {
 import {isLiving, isDead, returnDead, returnLiving} from './livingDeadDefinitions';
 
 /*
+ create a board representation (just a flat array)
+ inputs:
+   width in columns
+   height in rows
+   randomness in whole number %
+ */
+export function arrayFromWidthHeightWeight(width, height, weight = 0) {
+  var blankBoard = initializeBlankArray(width * height);
+  var randomArray = randomizeArray(blankBoard, weight);
+  return randomArray;
+}
+
+/*
  returns the number of living (1) cells surrounding cell at index
  inputs:
   board: flat array board
@@ -48,16 +61,90 @@ export function cellCount(board, width, index) {
 }
 
 /*
- create a board representation (just a flat array)
+ changeBoardHeight
  inputs:
-   width in columns
-   height in rows
-   randomness in whole number %
+  board: original board
+  width: original board width
+  newWidth: desired new width
+ output: updated board
  */
-export function arrayFromWidthHeightWeight(width, height, weight = 0) {
-  var blankBoard = initializeBlankArray(width * height);
-  var randomArray = randomizeArray(blankBoard, weight);
-  return randomArray;
+export function changeBoardHeight(board, height, newHeight) {
+  // if new height is equivalent, noop
+  if (newHeight === height) {
+    return board;
+  }
+
+  let oldBoard = board.slice();
+  let newBoard;
+  let width = board.length / height;
+
+  // if new height is greater, just add cells
+  if (newHeight > height) {
+    let difference = newHeight - height;
+    let newCells = arrayFromWidthHeightWeight(width, difference, 0);
+    newBoard = oldBoard.concat(newCells);
+  }
+
+  // if new height is less, slice off cells
+  if (newHeight < height) {
+    oldBoard.length = (newHeight * width);
+    newBoard = oldBoard;
+  }
+  return newBoard;
+}
+
+/*
+ changeBoardWidth
+ inputs:
+  board: original board
+  width: original board width
+  newWidth: desired new width
+ output: updated board
+ */
+export function changeBoardWidth(board, width, newWidth) {
+  // if new width is equivalent, noop
+  if (newWidth === width) {
+    return board;
+  }
+
+  let oldBoard = board.slice();
+  let newBoard = [];
+  let height = board.length / width;
+
+  // if new width is greater, add cells
+  if (newWidth > width) {
+
+    // determine number of cells to add to every interval
+    let difference = newWidth - width;
+
+    for(let i = 0; i < height; i++) {
+
+      // splice off 1 row at a time and insert into newBoard
+      let startIndex = i * width;
+      let endIndex = startIndex + width;
+      newBoard = newBoard.concat(oldBoard.slice(startIndex, endIndex));
+
+      // create new cells to insert
+      let newCells = arrayFromWidthHeightWeight(difference, 1, 0);
+
+      newBoard = newBoard.concat(newCells);
+    }
+
+  }
+
+  // if new width is less, trim cells from each row
+  if (newWidth < width) {
+
+    for(let i = 0; i < height; i++) {
+
+      // trim 1 row at a time and insert into newBoard
+      let startIndex = i * width;
+      let endIndex = startIndex + newWidth;
+      newBoard = newBoard.concat(oldBoard.slice(startIndex, endIndex));
+    }
+
+  }
+  return newBoard;
 }
 
 /*
@@ -101,7 +188,85 @@ export function iterateBoard(board, width, under = 2, over = 3, lazarus = 3) {
       throw new Error('unhandled cell value passed into iterateBoard');
     }
   }
-
   return  result;
+}
 
+/*
+ nudgeCells
+ inputs:
+   board: original board array
+   width: board width
+   direction: string, up/down/left/right
+ output:
+   nudged board
+ */
+export function nudgeCells(board, width, direction) {
+  var updatedBoard;
+  var little;
+  var big;
+
+  if (direction === 'up') {
+    little = board.slice(0, width);
+    big = board.slice(width);
+    updatedBoard = big.concat(little);
+  }
+  if (direction === 'down') {
+    little = board.slice(-width);
+    big = board.slice(0, board.length - width);
+    updatedBoard = little.concat(big);
+  }
+  if (direction === 'right') {
+
+    let result = [];
+
+    // little will be the result of every (index + 1) being equal to 'width'
+    little = board.filter((x, i) => {
+      return (i + 1) % width === 0;
+    });
+
+    // big will be equal to everything else
+    big = board.filter((x, i) => {
+      return (i + 1) % width !== 0;
+    });
+
+    // shuffle the 2 together
+    big.forEach((x,i) => {
+      if (i % (width - 1) === 0) {
+        result.push(little.shift());
+      }
+      result.push(x);
+    });
+
+    updatedBoard = result;
+  }
+  if (direction === 'left') {
+    let result = [];
+
+    // little will be equal to every 'width' interval of the board
+    little = board.filter((x, i) => {
+      return i % width === 0;
+    });
+
+    // big will be equal to everything else
+    big = board.filter((x, i) => {
+      return i % width !== 0;
+    });
+
+    // shuffle the 2 together
+    big.forEach((x,i) => {
+      result.push(x);
+      if ((i + 1) % (width - 1) === 0) {
+        result.push(little.shift());
+      }
+    });
+
+    updatedBoard = result;
+
+  }
+
+  // noop, just in case
+  if (updatedBoard === undefined) {
+    throw new Error('NUDGE_BOARD threw rogue direction');
+  }
+  return updatedBoard;
 }

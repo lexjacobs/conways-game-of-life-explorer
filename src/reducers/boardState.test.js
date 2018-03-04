@@ -130,6 +130,25 @@ test('setWidth will effectively change width', () => {
   expect(state).toEqual( {'board': [0,1,0,0,0,0,0,0,1,0,0,0], 'height': 3, 'width': 4});
 });
 
+test('setWidth / setHeight will effectively work together', () => {
+  var state = {
+    width: 3,
+    height: 3,
+    board: [0,1,1,0,0,1,1,0,0]
+  };
+  var action = actions.setWidth(3);
+  state = boardState(state, action);
+  expect(state).toEqual( {'board': [0,1,1,0,0,1,1,0,0], 'height': 3, 'width': 3});
+  action = actions.setHeight(3);
+  state = boardState(state, action);
+  expect(state).toEqual( {'board': [0,1,1,0,0,1,1,0,0], 'height': 3, 'width': 3});
+  action = actions.setHeight(2);
+  state = boardState(state, action);
+  expect(state).toEqual( {'board': [0,1,1,0,0,1], 'height': 2, 'width': 3});
+  action = actions.setWidth(2);
+  state = boardState(state, action);
+  expect(state).toEqual( {'board': [0,1,0,0], 'height': 2, 'width': 2});
+});
 
 test('NUDGE_BOARD will effectively move the board around', () => {
   var state = {

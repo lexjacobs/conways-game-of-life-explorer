@@ -1,5 +1,5 @@
 import * as constants from '../constants/constants';
-import {arrayFromWidthHeightWeight, iterateBoard} from '../helpers/boardMethods';
+import {changeBoardHeight, changeBoardWidth, iterateBoard, nudgeCells} from '../helpers/boardMethods';
 import {flipLivingDead, returnDead} from '../helpers/livingDeadDefinitions';
 
 const defaultState = {
@@ -62,78 +62,9 @@ export function boardState(state = defaultState, action) {
   }
 
   case constants.NUDGE_BOARD:
-
-    var updatedBoard;
-    var little;
-    var big;
-
-    if (action.direction === 'up') {
-      little = state.board.slice(0, state.width);
-      big = state.board.slice(state.width);
-      updatedBoard = big.concat(little);
-    }
-    if (action.direction === 'down') {
-      little = state.board.slice(-state.width);
-      big = state.board.slice(0, state.board.length - state.width);
-      updatedBoard = little.concat(big);
-    }
-    if (action.direction === 'right') {
-
-      let result = [];
-
-      // little will be the result of every (index + 1) being equal to 'width'
-      little = state.board.filter((x, i) => {
-        return (i + 1) % state.width === 0;
-      });
-
-      // big will be equal to everything else
-      big = state.board.filter((x, i) => {
-        return (i + 1) % state.width !== 0;
-      });
-
-      // shuffle the 2 together
-      big.forEach((x,i) => {
-        if (i % (state.width - 1) === 0) {
-          result.push(little.shift());
-        }
-        result.push(x);
-      });
-
-      updatedBoard = result;
-    }
-    if (action.direction === 'left') {
-      let result = [];
-
-      // little will be equal to every 'width' interval of the board
-      little = state.board.filter((x, i) => {
-        return i % state.width === 0;
-      });
-
-      // big will be equal to everything else
-      big = state.board.filter((x, i) => {
-        return i % state.width !== 0;
-      });
-
-      // shuffle the 2 together
-      big.forEach((x,i) => {
-        result.push(x);
-        if ((i + 1) % (state.width - 1) === 0) {
-          result.push(little.shift());
-        }
-      });
-
-      updatedBoard = result;
-
-    }
-
-    // noop, just in case
-    if (updatedBoard === undefined) {
-      throw new Error('NUDGE_BOARD threw rogue direction');
-    }
-
     return {
       ...state,
-      board: updatedBoard
+      board: nudgeCells(state.board, state.width, action.direction)
     };
 
   case constants.SET_BOARD:
@@ -145,86 +76,19 @@ export function boardState(state = defaultState, action) {
     };
 
   case constants.SET_HEIGHT:{
-
-    // if new height is equivalent, noop
-    if (action.height === state.height) {
-      return state;
-    }
-
-    let oldBoard = state.board.slice();
-    let newBoard;
-
-    // if new height is greater, just add cells
-    if (action.height > state.height) {
-      let difference = action.height - state.height;
-      let newCells = arrayFromWidthHeightWeight(state.width, difference, 0);
-      newBoard = oldBoard.concat(newCells);
-    }
-
-    // if new height is less, slice off cells
-    if (action.height < state.height) {
-      oldBoard.length = (action.height * state.width);
-      newBoard = oldBoard;
-    }
-
     return {
       ...state,
-      board: newBoard,
+      board: changeBoardHeight(state.board, state.height, action.height),
       height: action.height
     };
-
   }
 
   case constants.SET_WIDTH:{
-
-    // if new width is equivalent, noop
-    if (action.width === state.width) {
-      return state;
-    }
-
-    let oldBoard = state.board.slice();
-    let newBoard = [];
-
-    // if new width is greater, add cells
-    if (action.width > state.width) {
-
-      // determine number of cells to add to every interval
-      let difference = action.width - state.width;
-
-      for(let i = 0; i < state.height; i++) {
-
-        // splice off 1 row at a time and insert into newBoard
-        let startIndex = i * state.width;
-        let endIndex = startIndex + state.width;
-        newBoard = newBoard.concat(oldBoard.slice(startIndex, endIndex));
-
-        // create new cells to insert
-        let newCells = arrayFromWidthHeightWeight(difference, 1, 0);
-
-        newBoard = newBoard.concat(newCells);
-      }
-
-    }
-
-    // if new width is less, trim cells from each row
-    if (action.width < state.width) {
-
-      for(let i = 0; i < state.height; i++) {
-
-        // trim 1 row at a time and insert into newBoard
-        let startIndex = i * state.width;
-        let endIndex = startIndex + action.width;
-        newBoard = newBoard.concat(oldBoard.slice(startIndex, endIndex));
-      }
-
-    }
-
     return {
       ...state,
-      board: newBoard,
+      board: changeBoardWidth(state.board, state.width, action.width),
       width: action.width
     };
-
   }
   case constants.SET_RULES:{
     return {
@@ -232,7 +96,6 @@ export function boardState(state = defaultState, action) {
       under: action.rules.under,
       over: action.rules.over,
       lazarus: action.rules.lazarus,
-
     };
   }
 
