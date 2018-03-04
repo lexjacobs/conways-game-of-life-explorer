@@ -96,20 +96,40 @@ test('validates that boards can be iterated', () => {
   state = boardState(state, {type: 'ITERATE_BOARD'});
 });
 
-test('setHeight, setWidth will effectively change height / width', () => {
+test('setHeight will effectively change height', () => {
   var state = {
     width: 3,
     height: 3,
-    mickeyMouse: 39
+    board: [0,1,1,0,0,1,0,1,0]
   };
-  var action = actions.setHeight(2);
+  var action = actions.setHeight(3);
   state = boardState(state, action);
-  expect(state).toEqual( {'board': [0, 0, 0, 0, 0, 0], 'height': 2, 'mickeyMouse': 39, 'width': 3});
+  expect(state).toEqual( {'board': [0,1,1,0,0,1,0,1,0], 'height': 3, 'width': 3});
+  action = actions.setHeight(2);
+  state = boardState(state, action);
+  expect(state).toEqual( {'board': [0,1,1,0,0,1], 'height': 2, 'width': 3});
+  action = actions.setHeight(4);
+  state = boardState(state, action);
+  expect(state).toEqual( {'board': [0,1,1,0,0,1,0,0,0,0,0,0], 'height': 4, 'width': 3});
+});
 
+test('setWidth will effectively change width', () => {
+  var state = {
+    width: 3,
+    height: 3,
+    board: [0,1,1,0,0,1,1,0,0]
+  };
+  var action = actions.setWidth(3);
+  state = boardState(state, action);
+  expect(state).toEqual( {'board': [0,1,1,0,0,1,1,0,0], 'height': 3, 'width': 3});
   action = actions.setWidth(2);
   state = boardState(state, action);
-  expect(state).toEqual( {'board': [0, 0, 0, 0], 'height': 2, 'mickeyMouse': 39, 'width': 2});
+  expect(state).toEqual( {'board': [0,1,0,0,1,0], 'height': 3, 'width': 2});
+  action = actions.setWidth(4);
+  state = boardState(state, action);
+  expect(state).toEqual( {'board': [0,1,0,0,0,0,0,0,1,0,0,0], 'height': 3, 'width': 4});
 });
+
 
 test('NUDGE_BOARD will effectively move the board around', () => {
   var state = {

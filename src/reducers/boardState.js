@@ -1,6 +1,6 @@
 import * as constants from '../constants/constants';
 import {arrayFromWidthHeightWeight, iterateBoard} from '../helpers/boardMethods';
-import {flipLivingDead, isLiving, isDead, returnDead, returnLiving} from '../helpers/livingDeadDefinitions';
+import {flipLivingDead, returnDead} from '../helpers/livingDeadDefinitions';
 
 const defaultState = {
   board: [],
@@ -146,7 +146,26 @@ export function boardState(state = defaultState, action) {
 
   case constants.SET_HEIGHT:{
 
-    const newBoard = arrayFromWidthHeightWeight(state.width, action.height, state.chance);
+    // if new height is equivalent, noop
+    if (action.height === state.height) {
+      return state;
+    }
+
+    let oldBoard = state.board.slice();
+    let newBoard;
+
+    // if new height is greater, just add cells
+    if (action.height > state.height) {
+      let difference = action.height - state.height;
+      let newCells = arrayFromWidthHeightWeight(state.width, difference, 0);
+      newBoard = oldBoard.concat(newCells);
+    }
+
+    // if new height is less, slice off cells
+    if (action.height < state.height) {
+      oldBoard.length = (action.height * state.width);
+      newBoard = oldBoard;
+    }
 
     return {
       ...state,
@@ -158,7 +177,47 @@ export function boardState(state = defaultState, action) {
 
   case constants.SET_WIDTH:{
 
-    const newBoard = arrayFromWidthHeightWeight(action.width, state.height, state.chance);
+    // if new width is equivalent, noop
+    if (action.width === state.width) {
+      return state;
+    }
+
+    let oldBoard = state.board.slice();
+    let newBoard = [];
+
+    // if new width is greater, add cells
+    if (action.width > state.width) {
+
+      // determine number of cells to add to every interval
+      let difference = action.width - state.width;
+
+      for(let i = 0; i < state.height; i++) {
+
+        // splice off 1 row at a time and insert into newBoard
+        let startIndex = i * state.width;
+        let endIndex = startIndex + state.width;
+        newBoard = newBoard.concat(oldBoard.slice(startIndex, endIndex));
+
+        // create new cells to insert
+        let newCells = arrayFromWidthHeightWeight(difference, 1, 0);
+
+        newBoard = newBoard.concat(newCells);
+      }
+
+    }
+
+    // if new width is less, trim cells from each row
+    if (action.width < state.width) {
+
+      for(let i = 0; i < state.height; i++) {
+
+        // trim 1 row at a time and insert into newBoard
+        let startIndex = i * state.width;
+        let endIndex = startIndex + action.width;
+        newBoard = newBoard.concat(oldBoard.slice(startIndex, endIndex));
+      }
+
+    }
 
     return {
       ...state,
