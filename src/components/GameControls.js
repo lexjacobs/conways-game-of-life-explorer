@@ -1,16 +1,15 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-// import './gameControls.css';
 
 const GameControls = (props) => {
   return (<div>
 
-    <label htmlFor="width">width</label>
+    <label htmlFor="width"><i className="fas fa-arrows-h"></i></label>
     <input name="width" onChange={props.onChange} value={props.width} id="boardWidth" type="number" min="3"/>
-    <label htmlFor="height">height</label>
+    <label htmlFor="height"><i className="fas fa-arrows-v"></i></label>
     <input name="height" onChange={props.onChange} value={props.height} id="boardHeight" type="number" min="3"/>
-    <label htmlFor="delay">Delay in ms</label>
+    <label htmlFor="delay"><i className="fas fa-stopwatch"></i> in ms</label>
     <input name="updateDelay" onChange={props.onChange} value={props.delay} id="delay" step="100" type="number" min="0"/>
-    <label htmlFor="chance">Initial randomness in %</label>
+    <label htmlFor="chance"><i className="fas fa-random"></i>{' '}<i className="fas fa-percent"></i></label>
     <input name="chance" onChange={props.onAttribute} value={props.chance} id="chance" max="100" type="number" min="0"/>
 
     <br/>
@@ -30,10 +29,10 @@ const GameControls = (props) => {
     <br/>
     <br/>
 
-    <button name="startAgain" onClick={props.onChange} type="button" id="startAgain">Randomize Board</button>
-    <button name="playPause" onClick={props.onChange} type="button" id="playPause">{props.shouldIterate === true ? 'Stop Iteration' : 'Start Iteration'}</button>
-    <button name="step1" onClick={props.onChange} type="button" id="step1">Step Once</button>
-    <button name="clearBoard" onClick={props.onChange} type="button" id="clearBoard">Clear Board</button>
+    <button name="startAgain" className="fas fa-random" onClick={props.onChange} type="button" id="startAgain"></button>
+    <button name="playPause" className={props.shouldIterate === true ? 'fas fa-stop' : 'fas fa-play'} onClick={props.onChange} type="button" id="playPause"></button>
+    <button name="step1" className="fas fa-step-forward" onClick={props.onChange} type="button" id="step1"></button>
+    <button name="clearBoard" className="fas fa-eraser" onClick={props.onChange} type="button" id="clearBoard"></button>
 
   </div>);
 };

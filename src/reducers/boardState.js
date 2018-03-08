@@ -4,14 +4,14 @@ import {flipLivingDead, returnDead} from '../helpers/livingDeadDefinitions';
 
 const defaultState = {
   board: [],
-  chance: 50,
-  height: 32,
+  chance: 15,
+  height: 99,
   lazarus: 3,
   over: 3,
   previousBoards: [],
   shouldIterate: true,
   under: 2,
-  width: 74
+  width: 99
 };
 
 export function boardState(state = defaultState, action) {

@@ -10,10 +10,10 @@ const Gameboard = (props) => {
     gridGap: '0px'
   };
   const cellStyle = {
-    width: '10px',
-    height: '10px',
+    width: '4px',
+    height: '4px',
     boxSizing: 'borderBox',
-    border: '1px solid rgba(0, 0, 0, .3)',
+    border: '0.5px solid rgba(0, 0, 0, .3)',
     color: '#eee'
   };
 

@@ -266,7 +266,7 @@ export function nudgeCells(board, width, direction) {
 
   // noop, just in case
   if (updatedBoard === undefined) {
-    throw new Error('NUDGE_BOARD threw rogue direction');
+    throw new Error('NUDGE_BOARD threw rogue direction: ' + direction);
   }
   return updatedBoard;
 }

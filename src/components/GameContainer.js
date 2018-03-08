@@ -6,6 +6,7 @@ import GameControls from './GameControls';
 import Gameboard from './Gameboard';
 import NudgeControls from './NudgeControls';
 import {arrayFromWidthHeightWeight} from '../helpers/boardMethods.js';
+import '../assets/css/fontawesome-all.css';
 
 export default connect(mapPropsToState, mapDispatchToProps)(class GameContainer extends Component {
   constructor(props) {
