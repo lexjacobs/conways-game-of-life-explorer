@@ -21,7 +21,10 @@ export function boardState(state = defaultState, action) {
     let deadCell = returnDead();
     return {
       ...state,
-      board: state.board.map(x => deadCell)
+      board: state.board.map(x => {
+        x;
+        return deadCell;
+      })
     };
   }
 
