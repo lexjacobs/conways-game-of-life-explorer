@@ -5,6 +5,7 @@
   "dependencies": {
     "eslint": "^8.21.0",
     "eslint-plugin-react": "^7.30.1",
+    "gh-pages": "^4.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^8.0.2",
@@ -12,6 +13,9 @@
     "redux": "^4.2.0"
   },
   "scripts": {
+    "homepage": "https://lexjacobs.github.io/conways-game-of-life-explorer/",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
