@@ -12,8 +12,8 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.0"
   },
+  "homepage": "https://lexjacobs.github.io/conways-game-of-life-explorer/",
   "scripts": {
-    "homepage": "https://lexjacobs.github.io/conways-game-of-life-explorer/",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
