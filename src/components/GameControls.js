@@ -21,7 +21,7 @@ const GameControls = (props) => {
     <label htmlFor="under">Death by underpopulation if neighbors {'<'} </label>
     <input name="under" onChange={props.onAttribute} value={props.under} id="under" max="8" type="number" min="0"/>
     <br/>
-    <label htmlFor="lazarus">Rebirth by reproduction if neighbors == </label>
+    <label htmlFor="lazarus">Rebirth by reproduction if neighbors exactly equal </label>
     <input name="lazarus" onChange={props.onAttribute} value={props.lazarus} id="lazarus" max="8" type="number" min="0"/>
     <br/>
     <button name="setDefaultRules" onClick={props.onChange} type="button" id="setDefaultRules">Reset Default Rules</button>
